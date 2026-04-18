@@ -1,13 +1,17 @@
 [
   {
+    "id": 1,
     "nome": "Dior Sauvage",
-    "preco": 350,
+    "preco": 350.00,
+    "ml": "100ml",
     "tipo": "masculino",
     "imagem": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Sauvage_Dior.jpg"
   },
   {
+    "id": 2,
     "nome": "Chanel Nº5",
-    "preco": 420,
+    "preco": 420.00,
+    "ml": "50ml",
     "tipo": "feminino",
     "imagem": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Chanel_No_5.jpg"
   }
