@@ -2,30 +2,42 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Lumi Perfum</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumi Perfum | Exclusive Collection</title>
+  <link href="https://googleapis.com" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="topo">
+  <p class="badge">Elegância em cada nota</p>
   <h1>LUMI PERFUM</h1>
-  <p>Perfumes selecionados com elegância</p>
+  <nav class="filtros">
+    <button onclick="filtrar('todos')" class="active">Todos</button>
+    <button onclick="filtrar('masculino')">Masculino</button>
+    <button onclick="filtrar('feminino')">Feminino</button>
+  </nav>
 </header>
 
-<section class="filtros">
-  <button onclick="filtrar('todos')">Todos</button>
-  <button onclick="filtrar('masculino')">Masculino</button>
-  <button onclick="filtrar('feminino')">Feminino</button>
-</section>
+<main id="produtos" class="grid"></main>
 
-<section id="produtos" class="grid"></section>
+<!-- Carrinho Flutuante Moderno -->
+<div id="cart-icon" onclick="toggleCart()">
+  <span>🛒</span>
+  <span id="cart-count">0</span>
+</div>
 
-<section class="carrinho">
-  <h2>Seu Carrinho</h2>
+<aside id="carrinho-lateral" class="carrinho">
+  <div class="cart-header">
+    <h2>Sua Sacola</h2>
+    <button onclick="toggleCart()">X</button>
+  </div>
   <div id="lista-carrinho"></div>
-  <h3 id="total">Total: R$ 0</h3>
-  <button onclick="finalizarCompra()">Finalizar no WhatsApp</button>
-</section>
+  <div class="cart-footer">
+    <h3 id="total">Total: R$ 0,00</h3>
+    <button class="btn-finalizar" onclick="finalizarCompra()">Finalizar via WhatsApp</button>
+  </div>
+</aside>
 
 <script src="script.js"></script>
 </body>
