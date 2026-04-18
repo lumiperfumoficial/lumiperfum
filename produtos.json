@@ -3,12 +3,12 @@
     "nome": "Dior Sauvage",
     "preco": 350,
     "tipo": "masculino",
-    "imagem": "https://i.imgur.com/3ZQ3Z9G.png"
+    "imagem": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Sauvage_Dior.jpg"
   },
   {
     "nome": "Chanel Nº5",
     "preco": 420,
     "tipo": "feminino",
-    "imagem": "https://i.imgur.com/U3bXc6G.png"
+    "imagem": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Chanel_No_5.jpg"
   }
 ]
