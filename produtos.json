@@ -1,0 +1,14 @@
+[
+  {
+    "nome": "Perfume X",
+    "preco": 150,
+    "tipo": "masculino",
+    "imagem": "https://via.placeholder.com/300"
+  },
+  {
+    "nome": "Perfume Y",
+    "preco": 200,
+    "tipo": "feminino",
+    "imagem": "https://via.placeholder.com/300"
+  }
+]

@@ -1,0 +1,82 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0a0f1c;
+  color: white;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.filtros {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.filtros button {
+  margin: 5px;
+  padding: 10px 20px;
+  background: #111827;
+  color: white;
+  border: 1px solid #1f2937;
+  cursor: pointer;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background: #111827;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 15px rgba(0, 100, 255, 0.3);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+}
+
+.card h3 {
+  margin: 10px 0;
+}
+
+.card button {
+  background: #1f2937;
+  border: none;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+}
+
+.carrinho {
+  background: #111827;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.carrinho button {
+  width: 100%;
+  padding: 15px;
+  background: #2563eb;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
