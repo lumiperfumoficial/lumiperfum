@@ -1,18 +1,82 @@
 [
-  {
-    "id": 1,
-    "nome": "Dior Sauvage",
-    "preco": 350.00,
-    "ml": "100ml",
-    "tipo": "masculino",
-    "imagem": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Sauvage_Dior.jpg"
-  },
-  {
-    "id": 2,
-    "nome": "Chanel Nº5",
-    "preco": 420.00,
-    "ml": "50ml",
-    "tipo": "feminino",
-    "imagem": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Chanel_No_5.jpg"
-  }
+{
+"id": 1,
+"nome": "Sauvage Dior",
+"preco": 680.00,
+"ml": "100ml",
+"tipo": "masculino",
+"imagem": "dior.com"
+},
+{
+"id": 2,
+"nome": "Chanel Nº5",
+"preco": 850.00,
+"ml": "50ml",
+"tipo": "feminino",
+"imagem": "chanel.com"
+},
+{
+"id": 3,
+"nome": "Bleu de Chanel",
+"preco": 720.00,
+"ml": "100ml",
+"tipo": "masculino",
+"imagem": "chanel.com"
+},
+{
+"id": 4,
+"nome": "Good Girl",
+"preco": 540.00,
+"ml": "80ml",
+"tipo": "feminino",
+"imagem": "carolinaherrera.com"
+},
+{
+"id": 5,
+"nome": "1 Million",
+"preco": 490.00,
+"ml": "100ml",
+"tipo": "masculino",
+"imagem": "paco-rabanne.com"
+},
+{
+"id": 6,
+"nome": "Libre YSL",
+"preco": 620.00,
+"ml": "90ml",
+"tipo": "feminino",
+"imagem": "yslbeauty.com.br"
+},
+{
+"id": 7,
+"nome": "Invictus",
+"preco": 460.00,
+"ml": "100ml",
+"tipo": "masculino",
+"imagem": "paco-rabanne.com"
+},
+{
+"id": 8,
+"nome": "J'adore Dior",
+"preco": 790.00,
+"ml": "100ml",
+"tipo": "feminino",
+"imagem": "dior.com"
+},
+{
+"id": 9,
+"nome": "Scandal",
+"preco": 510.00,
+"ml": "80ml",
+"tipo": "feminino",
+"imagem": "jeanpaulgaultier.com"
+},
+{
+"id": 10,
+"nome": "Eros Versace",
+"preco": 580.00,
+"ml": "100ml",
+"tipo": "masculino",
+"imagem": "versace.com"
+}
 ]
