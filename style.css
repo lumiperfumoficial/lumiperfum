@@ -1,94 +1,94 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #0a0f1c, #020617);
-  color: #e5e7eb;
+  background: #020617;
+  color: white;
 }
 
-/* HEADER */
-header {
+/* HEADER PREMIUM */
+.topo {
   text-align: center;
-  padding: 30px;
-  font-size: 32px;
-  font-weight: bold;
-  letter-spacing: 1px;
+  padding: 50px 20px;
+  background: radial-gradient(circle, #0f172a, #020617);
+}
+
+.topo h1 {
+  font-size: 40px;
+  letter-spacing: 3px;
+}
+
+.topo p {
+  color: #9ca3af;
 }
 
 /* FILTROS */
 .filtros {
   text-align: center;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 .filtros button {
-  margin: 5px;
   padding: 10px 20px;
+  margin: 5px;
+  border: 1px solid #334155;
   background: transparent;
   color: #9ca3af;
-  border: 1px solid #1f2937;
   cursor: pointer;
-  border-radius: 6px;
-  transition: 0.3s;
+  border-radius: 8px;
 }
 
 .filtros button:hover {
   color: white;
-  border-color: #2563eb;
+  border-color: #3b82f6;
 }
 
 /* GRID */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 25px;
-  padding: 20px;
+  padding: 30px;
 }
 
-/* CARD */
+/* CARD PREMIUM */
 .card {
   background: #0f172a;
-  border-radius: 12px;
-  padding: 15px;
+  border-radius: 15px;
+  padding: 20px;
   text-align: center;
-  border: 1px solid #1f2937;
+  border: 1px solid #1e293b;
   transition: 0.3s;
-  position: relative;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 20px rgba(37, 99, 235, 0.2);
+  transform: translateY(-8px);
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.3);
 }
 
-/* IMAGEM */
 .card img {
   width: 100%;
-  height: 200px;
+  height: 220px;
   object-fit: contain;
-  margin-bottom: 10px;
 }
 
 /* TEXTO */
 .card h3 {
-  margin: 10px 0 5px;
-  font-size: 18px;
+  margin-top: 10px;
 }
 
 .card p {
   color: #9ca3af;
-  margin-bottom: 10px;
 }
 
-/* BOTÃO */
+/* BOTÃO PREMIUM */
 .card button {
-  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  margin-top: 10px;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
   border: none;
-  padding: 10px;
+  padding: 12px;
   color: white;
+  border-radius: 8px;
   cursor: pointer;
-  width: 100%;
-  border-radius: 6px;
-  transition: 0.3s;
 }
 
 .card button:hover {
@@ -99,27 +99,16 @@ header {
 .carrinho {
   background: #0f172a;
   margin: 20px;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid #1f2937;
-}
-
-.carrinho h2 {
-  margin-bottom: 10px;
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px solid #1e293b;
 }
 
 .carrinho button {
   width: 100%;
   padding: 15px;
-  background: linear-gradient(90deg, #16a34a, #22c55e);
+  background: linear-gradient(90deg, #22c55e, #16a34a);
   border: none;
   color: white;
-  cursor: pointer;
-  border-radius: 8px;
-  margin-top: 10px;
-  transition: 0.3s;
-}
-
-.carrinho button:hover {
-  opacity: 0.85;
+  border-radius: 10px;
 }
