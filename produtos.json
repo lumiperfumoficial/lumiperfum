@@ -1,14 +1,14 @@
 [
   {
-    "nome": "Perfume X",
-    "preco": 150,
+    "nome": "Dior Sauvage",
+    "preco": 350,
     "tipo": "masculino",
-    "imagem": "https://via.placeholder.com/300"
+    "imagem": "https://i.imgur.com/3ZQ3Z9G.png"
   },
   {
-    "nome": "Perfume Y",
-    "preco": 200,
+    "nome": "Chanel Nº5",
+    "preco": 420,
     "tipo": "feminino",
-    "imagem": "https://via.placeholder.com/300"
+    "imagem": "https://i.imgur.com/U3bXc6G.png"
   }
 ]
