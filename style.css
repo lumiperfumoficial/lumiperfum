@@ -1,238 +1,64 @@
-:root {
-  --gold: #d4af37;
-  --bg: #050505;
-  --card-bg: rgba(255, 255, 255, 0.03);
-  --border: rgba(255, 255, 255, 0.1);
-  --text-main: #f5f5f7;
-  --text-dim: #a1a1aa;
-}
-
+/* Troque a seção do BODY para esta: */
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: radial-gradient(circle at top, #1a1a1a 0%, #000 100%);
+  /* Um fundo que não é 100% preto, tem um toque de azul marinho profundo e iluminação no topo */
+  background: radial-gradient(circle at top, #1a1c2c 0%, #050505 100%);
   color: var(--text-main);
   overflow-x: hidden;
 }
 
-/* HEADER */
-.topo {
-  text-align: center;
-  padding: 80px 20px 40px;
-}
-
-.badge {
-  font-size: 12px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 10px;
-}
-
-.topo h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(40px, 8vw, 64px);
-  margin: 0;
-  font-weight: 700;
-  letter-spacing: 2px;
-}
-
-/* FILTROS */
-.filtros {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.filtros button {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-dim);
-  padding: 8px 20px;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.filtros button.active, .filtros button:hover {
-  background: #fff;
-  color: #000;
-  border-color: #fff;
-}
-
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  padding: 40px 60px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-/* CARD PREMIUM */
+/* Troque a seção do CARD para esta: */
 .card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 25px;
+  background: rgba(255, 255, 255, 0.05); /* Vidro fosco */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0px; /* Bordas retas passam mais seriedade e luxo que redondas */
+  padding: 30px;
   text-align: center;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  backdrop-filter: blur(10px);
+  transition: all 0.5s ease;
+  backdrop-filter: blur(15px);
+  position: relative;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 1px solid transparent;
+  transition: 0.5s;
 }
 
 .card:hover {
-  transform: translateY(-10px);
-  border-color: rgba(255,255,255,0.3);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-5px);
+  border-color: #d4af37; /* Borda dourada ao passar o mouse */
 }
 
-.img-container {
-  height: 250px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.card img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.8));
-}
-
-.tipo {
-  font-size: 11px;
-  text-transform: uppercase;
-  color: var(--gold);
-  letter-spacing: 1px;
-  margin-bottom: 5px;
-}
-
-.card h3 {
-  font-size: 20px;
-  margin: 10px 0;
-  font-weight: 500;
-}
-
+/* Ajuste o PREÇO para ficar "Quente" */
 .preco {
-  font-size: 22px;
-  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: #e5c07b; /* Dourado suave */
   margin-bottom: 20px;
 }
 
+/* Botão de Compra Minimalista */
 .card button {
   width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  background: #fff;
-  color: #000;
-  font-weight: 600;
+  padding: 15px;
+  border-radius: 0px; 
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.4s;
 }
 
 .card button:hover {
-  background: var(--gold);
-  color: #fff;
-}
-
-/* CARRINHO LATERAL */
-#cart-icon {
-  position: fixed;
-  top: 30px;
-  right: 30px;
   background: #fff;
   color: #000;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 99;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-}
-
-#cart-count {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: var(--gold);
-  color: white;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.carrinho {
-  position: fixed;
-  top: 0;
-  right: -400px;
-  width: 350px;
-  height: 100%;
-  background: #0a0a0a;
-  border-left: 1px solid var(--border);
-  z-index: 1000;
-  transition: 0.4s ease;
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
-}
-
-.carrinho.open {
-  right: 0;
-}
-
-.cart-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.item-carrinho {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.item-carrinho button {
-  background: transparent;
-  color: #ff4444;
-  border: none;
-  cursor: pointer;
-}
-
-.cart-footer {
-  margin-top: auto;
-  padding-top: 20px;
-}
-
-.btn-finalizar {
-  width: 100%;
-  padding: 18px;
-  background: #25d366;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 15px;
-}
-
-@media (max-width: 600px) {
-  .grid { padding: 20px; }
-  .carrinho { width: 100%; right: -100%; }
 }
