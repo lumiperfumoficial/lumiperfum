@@ -18,6 +18,9 @@ function renderProdutos(lista) {
         const promoTag = p.desconto ? `<div class="promo-tag">-${p.desconto}%</div>` : '';
         const benTag = p.beneficio ? `<div class="beneficio-tag">${p.beneficio}</div>` : '';
         
+        // ADIÇÃO: Puxa a descrição do banco de dados (se houver)
+        const descHtml = p.descricao ? `<div class="card-desc">${p.descricao}</div>` : '';
+        
         container.innerHTML += `
             <div class="card">
                 <div class="tag-container">
@@ -32,6 +35,8 @@ function renderProdutos(lista) {
                 
                 <div class="card-brand">LumiPerfum</div>
                 <div class="card-title">${p.nome}</div>
+                
+                ${descHtml}
                 
                 <div class="price-area">
                     <div class="price-box">
