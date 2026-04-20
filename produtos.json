@@ -38,5 +38,15 @@
     "desconto": "",
     "beneficio": "",
     "imagem": "https://raw.githubusercontent.com/lumiperfumoficial/lumiperfum/main/img/produto_1776660680104.jpeg"
+  },
+  {
+    "nome": "Sabah AI Ward",
+    "tipo": "feminino",
+    "ml": "100ML",
+    "precoAtual": 199,
+    "precoAntigo": null,
+    "desconto": "",
+    "beneficio": "",
+    "imagem": "https://raw.githubusercontent.com/lumiperfumoficial/lumiperfum/main/img/produto_1776660723641.jpeg"
   }
 ]
