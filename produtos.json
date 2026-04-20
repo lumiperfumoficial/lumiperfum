@@ -1,18 +1,20 @@
 [
   {
-    "id": 1,
-    "nome": "Dior Sauvage",
-    "preco": 350.00,
-    "ml": "100ml",
+    "nome": "Bleu de Chanel",
+    "preco": 850,
     "tipo": "masculino",
-    "imagem": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Sauvage_Dior.jpg"
+    "imagem": "https://m.media-amazon.com/images/I/41K995zG2UL.jpg"
   },
   {
-    "id": 2,
-    "nome": "Chanel Nº5",
-    "preco": 420.00,
-    "ml": "50ml",
+    "nome": "Good Girl",
+    "preco": 720,
     "tipo": "feminino",
-    "imagem": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Chanel_No_5.jpg"
+    "imagem": "https://m.media-amazon.com/images/I/51pI-a6C-4L._SL1000_.jpg"
+  },
+  {
+    "nome": "Sauvage Dior",
+    "preco": 900,
+    "tipo": "masculino",
+    "imagem": "https://m.media-amazon.com/images/I/51A9TjX+t0L._SL1000_.jpg"
   }
 ]
