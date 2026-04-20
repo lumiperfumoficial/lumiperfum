@@ -1,13 +1,15 @@
 let produtos = [];
 let carrinho = [];
 
+// Carrega dados com carimbo de tempo para evitar cache do navegador
 async function carregarDados() {
     try {
-        const response = await fetch('produtos.json');
+        const cacheBuster = `?t=${new Date().getTime()}`;
+        const response = await fetch('produtos.json' + cacheBuster);
         produtos = await response.json();
         renderProdutos(produtos);
     } catch (error) {
-        console.error("Erro ao carregar dados:", error);
+        console.error("Erro ao sincronizar estoque:", error);
     }
 }
 
@@ -16,15 +18,15 @@ function renderProdutos(lista) {
     container.innerHTML = "";
 
     lista.forEach(p => {
-        // Define a cor baseada no tipo para o card individual
-        const corDestaque = p.tipo === 'feminino' ? 'var(--feminino)' : 'var(--masculino)';
+        // Define a cor de destaque individual por perfume
+        const color = p.tipo === 'feminino' ? 'var(--accent-fem)' : 'var(--accent-masc)';
         
         container.innerHTML += `
-            <div class="card" style="border-bottom: 4px solid ${corDestaque}">
-                <span class="ml-tag">${p.ml || '100ML'}</span>
-                <img src="${p.imagem}" alt="${p.nome}">
+            <div class="card" style="border-bottom: 4px solid ${color}">
+                <span class="ml-badge">${p.ml || '100ML'}</span>
+                <img src="${p.imagem}" alt="${p.nome}" loading="lazy">
                 <h3>${p.nome}</h3>
-                <span class="preco" style="color: ${corDestaque}">R$ ${p.preco.toFixed(2)}</span>
+                <span class="price" style="color: ${color}">R$ ${p.preco.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
                 <button class="btn-add" onclick="addCarrinho('${p.nome}', ${p.preco})">
                     Adicionar ao Carrinho
                 </button>
@@ -35,6 +37,7 @@ function renderProdutos(lista) {
 
 function filtrar(tipo) {
     document.body.className = `tema-${tipo}`;
+    
     document.querySelectorAll('.btn-filtro').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.tipo === tipo);
     });
@@ -45,15 +48,15 @@ function filtrar(tipo) {
 
 function addCarrinho(nome, preco) {
     carrinho.push({ nome, preco });
-    atualizarCarrinho();
+    atualizarInterface();
 }
 
 function removerItem(index) {
     carrinho.splice(index, 1);
-    atualizarCarrinho();
+    atualizarInterface();
 }
 
-function atualizarCarrinho() {
+function atualizarInterface() {
     const lista = document.getElementById("lista-carrinho");
     const totalEl = document.getElementById("total");
     const countEl = document.getElementById("cart-count");
@@ -62,28 +65,38 @@ function atualizarCarrinho() {
     let total = 0;
 
     if (carrinho.length === 0) {
-        lista.innerHTML = '<p class="empty-msg">O carrinho está vazio.</p>';
+        lista.innerHTML = '<p class="empty-msg">Nenhuma fragrância selecionada.</p>';
     } else {
         carrinho.forEach((item, index) => {
             lista.innerHTML += `
                 <div class="cart-item">
-                    <span>${item.nome}</span>
-                    <strong>R$ ${item.preco.toFixed(2)}</strong>
-                    <button onclick="removerItem(${index})" style="color:red; background:none; border:none; cursor:pointer;">X</button>
+                    <div>
+                        <p style="font-weight:600; font-size: 14px;">${item.nome}</p>
+                        <small style="color:#94a3b8">R$ ${item.preco.toFixed(2)}</small>
+                    </div>
+                    <button onclick="removerItem(${index})" style="color:#ef4444; background:none; border:none; cursor:pointer; font-weight:800;">×</button>
                 </div>
             `;
             total += item.preco;
         });
     }
 
-    totalEl.innerText = `R$ ${total.toFixed(2)}`;
-    countEl.innerText = `${carrinho.length} itens`;
+    totalEl.innerText = `R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+    countEl.innerText = `${carrinho.length} produtos`;
 }
 
 function finalizarCompra() {
-    if (carrinho.length === 0) return alert("Carrinho vazio!");
-    const msg = encodeURIComponent(`Olá LumiPerfum! Gostaria de encomendar:\n${carrinho.map(i => `- ${i.nome}`).join('\n')}\nTotal: R$ ${document.getElementById("total").innerText}`);
-    window.open(`https://wa.me/5599999999999?text=${msg}`);
+    if (carrinho.length === 0) return alert("Seu carrinho está vazio!");
+
+    const numeroLoja = "5599999999999"; // Seu WhatsApp
+    let pedido = "💎 *LumiPerfum - Novo Pedido*\n\n";
+    
+    carrinho.forEach(i => pedido += `▪️ ${i.nome} - R$ ${i.preco.toFixed(2)}\n`);
+    
+    const total = carrinho.reduce((sum, item) => sum + item.preco, 0);
+    pedido += `\n*TOTAL: R$ ${total.toFixed(2)}*`;
+
+    window.open(`https://wa.me/${numeroLoja}?text=${encodeURIComponent(pedido)}`);
 }
 
 carregarDados();
