@@ -6,7 +6,7 @@ async function carregarDados() {
         const res = await fetch(`produtos.json?t=${new Date().getTime()}`);
         produtos = await res.json();
         renderProdutos(produtos);
-    } catch (e) { console.error("Erro no JSON. Suba para o GitHub para testar.", e); }
+    } catch (e) { console.error("Erro ao carregar dados", e); }
 }
 
 function renderProdutos(lista) {
@@ -14,28 +14,38 @@ function renderProdutos(lista) {
     container.innerHTML = "";
 
     lista.forEach(p => {
-        const corTema = p.tipo === 'feminino' ? 'var(--fem)' : 'var(--masc)';
-        const oldPriceHtml = p.precoAntigo ? `R$ ${p.precoAntigo.toFixed(2)}` : '';
-        const descHtml = p.desconto ? `<div class="promo-tag">-${p.desconto}%</div>` : '';
-        const benHtml = p.beneficio ? `<div class="beneficio-tag">${p.beneficio}</div>` : '';
-
+        const oldPrice = p.precoAntigo ? `R$ ${p.precoAntigo.toFixed(2)}` : '';
+        const promoTag = p.desconto ? `<div class="promo-tag">-${p.desconto}%</div>` : '';
+        const benTag = p.beneficio ? `<div class="beneficio-tag">${p.beneficio}</div>` : '';
+        
         container.innerHTML += `
-            <div class="card" style="border-bottom: 3px solid ${corTema}">
-                ${descHtml}
-                <div class="img-box"><img src="${p.imagem}" alt="${p.nome}"></div>
-                ${benHtml}
-                <h3>LumiPerfum</h3>
-                <h2>${p.nome} - ${p.ml || '100ML'}</h2>
-                <span class="price-old">${oldPriceHtml}</span>
-                <span class="price-new" style="color: ${corTema}">R$ ${p.precoAtual.toFixed(2)}</span>
-                <button class="btn-add-sacola" onclick="addSacola('${p.nome}', ${p.precoAtual})">+</button>
+            <div class="card">
+                <div class="tag-container">
+                    ${promoTag}
+                    ${benTag}
+                </div>
+                <div class="ml-badge">${p.ml || '100ML'}</div>
+                
+                <div class="img-box">
+                    <img src="${p.imagem}" alt="${p.nome}">
+                </div>
+                
+                <div class="card-brand">LumiPerfum</div>
+                <div class="card-title">${p.nome}</div>
+                
+                <div class="price-area">
+                    <div class="price-box">
+                        <span class="price-old">${oldPrice}</span>
+                        <span class="price-new">R$ ${p.precoAtual.toFixed(2)}</span>
+                    </div>
+                    <button class="btn-add" onclick="addSacola('${p.nome}', ${p.precoAtual})">+</button>
+                </div>
             </div>
         `;
     });
 }
 
 function filtrar(tipo) {
-    document.body.className = `tema-${tipo}`;
     document.querySelectorAll('.btn-filtro').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.tipo === tipo);
     });
@@ -58,18 +68,21 @@ function atualizarCarrinho() {
     lista.innerHTML = "";
     let total = 0;
 
-    carrinho.forEach((item, i) => {
-        lista.innerHTML += `
-            <div class="cart-item">
-                <div>
-                    <p style="font-weight:600">${item.nome}</p>
-                    <small style="color:#94a3b8">R$ ${item.preco.toFixed(2)}</small>
-                </div>
-                <button onclick="removerItem(${i})" style="border:none; background:none; color:#ef4444; font-weight:bold; cursor:pointer;">X</button>
-            </div>`;
-        total += item.preco;
-    });
-
+    if (carrinho.length === 0) {
+        lista.innerHTML = '<p class="empty-msg">Nenhum produto selecionado.</p>';
+    } else {
+        carrinho.forEach((item, i) => {
+            lista.innerHTML += `
+                <div class="cart-item">
+                    <div>
+                        <p style="font-weight:700; font-size:14px; margin-bottom:4px;">${item.nome}</p>
+                        <p style="color:#71717a; font-weight:600;">R$ ${item.preco.toFixed(2)}</p>
+                    </div>
+                    <button onclick="removerItem(${i})" style="border:none; background:none; color:#e11d48; font-weight:bold; cursor:pointer; font-size:14px;">Remover</button>
+                </div>`;
+            total += item.preco;
+        });
+    }
     document.getElementById("total").innerText = `R$ ${total.toFixed(2)}`;
 }
 
@@ -79,18 +92,19 @@ function removerItem(i) {
 }
 
 function finalizarCompra() {
-    if (carrinho.length === 0) return alert("Sacola vazia!");
+    if (carrinho.length === 0) return alert("Sua sacola está vazia!");
+    
     const formaPgto = document.getElementById('metodo-pagamento').value;
     let total = 0;
-    let msg = "💎 *PEDIDO LUMIPERFUM*\n\n";
+    let msg = "🛍️ *PEDIDO LUMIPERFUM*\n\n";
     
     carrinho.forEach(item => {
         msg += `▪️ ${item.nome} - R$ ${item.preco.toFixed(2)}\n`;
         total += item.preco;
     });
 
-    msg += `\n💰 *Total:* R$ ${total.toFixed(2)}`;
-    msg += `\n💳 *Pagamento:* ${formaPgto}\n\n_Aguardando confirmação..._`;
+    msg += `\n💰 *Total da Compra:* R$ ${total.toFixed(2)}`;
+    msg += `\n💳 *Forma de Pagamento:* ${formaPgto}\n\n_Aguardando confirmação..._`;
 
     window.open(`https://wa.me/5599999999999?text=${encodeURIComponent(msg)}`);
 }
