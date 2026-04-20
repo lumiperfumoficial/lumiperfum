@@ -59,16 +59,5 @@
     "desconto": "",
     "beneficio": "",
     "imagem": "https://raw.githubusercontent.com/lumiperfumoficial/lumiperfum/main/img/produto_1776662174423.jpeg"
-  },
-  {
-    "nome": "TESTE DE PERFUME",
-    "descricao": "",
-    "tipo": "feminino",
-    "ml": "150ML",
-    "precoAtual": 15.9,
-    "precoAntigo": null,
-    "desconto": "",
-    "beneficio": "",
-    "imagem": "https://raw.githubusercontent.com/lumiperfumoficial/lumiperfum/main/img/produto_1776662298919.jpeg"
   }
 ]
