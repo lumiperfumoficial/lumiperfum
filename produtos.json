@@ -1,22 +1,12 @@
 [
   {
-    "nome": "Floratta Red Desodorante ColÃÂ´nia",
+    "nome": "Floratta Red Desodorante ColÃÂÃÂ´nia",
     "tipo": "feminino",
     "ml": "75ML",
     "precoAtual": 119.9,
     "precoAntigo": 149.9,
     "desconto": "20",
-    "beneficio": "FRETE GRÃÂTIS",
+    "beneficio": "FRETE GRÃÂÃÂTIS",
     "imagem": "https://m.media-amazon.com/images/I/51pI-a6C-4L._SL1000_.jpg"
-  },
-  {
-    "nome": "Sauvage Dior Eau de Parfum",
-    "tipo": "masculino",
-    "ml": "100ML",
-    "precoAtual": 850,
-    "precoAntigo": null,
-    "desconto": "",
-    "beneficio": "RETIRE EM 2H",
-    "imagem": "https://m.media-amazon.com/images/I/51A9TjX+t0L._SL1000_.jpg"
   }
 ]
