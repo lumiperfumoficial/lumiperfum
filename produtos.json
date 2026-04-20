@@ -1,19 +1,19 @@
 [
   {
-    "nome": "Floratta Red Desodorante Colônia",
+    "nome": "Floratta Red Desodorante ColÃ´nia",
     "tipo": "feminino",
     "ml": "75ML",
-    "precoAtual": 119.90,
-    "precoAntigo": 149.90,
+    "precoAtual": 119.9,
+    "precoAntigo": 149.9,
     "desconto": "20",
-    "beneficio": "FRETE GRÁTIS",
+    "beneficio": "FRETE GRÃTIS",
     "imagem": "https://m.media-amazon.com/images/I/51pI-a6C-4L._SL1000_.jpg"
   },
   {
     "nome": "Sauvage Dior Eau de Parfum",
     "tipo": "masculino",
     "ml": "100ML",
-    "precoAtual": 850.00,
+    "precoAtual": 850,
     "precoAntigo": null,
     "desconto": "",
     "beneficio": "RETIRE EM 2H",
@@ -23,20 +23,10 @@
     "nome": "Lily Eau de Parfum",
     "tipo": "feminino",
     "ml": "75ML",
-    "precoAtual": 259.90,
-    "precoAntigo": 299.90,
+    "precoAtual": 259.9,
+    "precoAntigo": 299.9,
     "desconto": "13",
     "beneficio": "MIMO EXCLUSIVO",
     "imagem": "https://m.media-amazon.com/images/I/51v68m6K0DL._AC_SL1000_.jpg"
-  },
-  {
-    "nome": "Bleu de Chanel",
-    "tipo": "masculino",
-    "ml": "100ML",
-    "precoAtual": 950.00,
-    "precoAntigo": 1150.00,
-    "desconto": "17",
-    "beneficio": "FRETE GRÁTIS",
-    "imagem": "https://m.media-amazon.com/images/I/41K995zG2UL.jpg"
   }
 ]
