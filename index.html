@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LumiPerfum | Fragrâncias de Luxo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="tema-todos">
@@ -12,9 +12,9 @@
 <header class="main-header">
     <div class="logo">LUMI<span>PERFUM</span></div>
     <nav class="filtros">
-        <button class="btn-filtro active" onclick="filtrar('todos')">Todos</button>
-        <button class="btn-filtro" onclick="filtrar('masculino')">Masculino</button>
-        <button class="btn-filtro" onclick="filtrar('feminino')">Feminino</button>
+        <button class="btn-filtro active" data-tipo="todos" onclick="filtrar('todos')">Todos</button>
+        <button class="btn-filtro" data-tipo="masculino" onclick="filtrar('masculino')">Masculino</button>
+        <button class="btn-filtro" data-tipo="feminino" onclick="filtrar('feminino')">Feminino</button>
     </nav>
 </header>
 
@@ -23,14 +23,23 @@
 
     <aside class="sidebar">
         <div class="cart-card">
-            <h2>Carrinho</h2>
-            <div id="lista-carrinho" class="cart-items"></div>
+            <div class="cart-header">
+                <h2>Meu Carrinho</h2>
+                <span id="cart-count">0 itens</span>
+            </div>
+            
+            <div id="lista-carrinho" class="cart-items">
+                <p class="empty-msg">O carrinho está vazio.</p>
+            </div>
+
             <div class="cart-footer">
-                <div class="total-row">
-                    <span>Total:</span>
+                <div class="total-container">
+                    <span>Total Estimado:</span>
                     <strong id="total">R$ 0,00</strong>
                 </div>
-                <button class="btn-checkout" onclick="finalizarCompra()">Finalizar Pedido</button>
+                <button class="btn-checkout" onclick="finalizarCompra()">
+                    Finalizar via WhatsApp
+                </button>
             </div>
         </div>
     </aside>
