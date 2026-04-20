@@ -59,5 +59,16 @@
     "desconto": "",
     "beneficio": "",
     "imagem": "https://raw.githubusercontent.com/lumiperfumoficial/lumiperfum/main/img/produto_1776662174423.jpeg"
+  },
+  {
+    "nome": "Kit Mini Orientica",
+    "descricao": "5 Perfumes",
+    "tipo": "feminino",
+    "ml": "7.5ML",
+    "precoAtual": 259.5,
+    "precoAntigo": 300,
+    "desconto": "5",
+    "beneficio": "Promoção",
+    "imagem": "https://raw.githubusercontent.com/lumiperfumoficial/lumiperfum/main/img/produto_1776664844463.jpeg"
   }
 ]
