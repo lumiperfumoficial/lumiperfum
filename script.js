@@ -1,14 +1,13 @@
 let produtos = [];
 let carrinho = [];
 
-// Carregamento inicial dos dados
 async function carregarDados() {
     try {
         const response = await fetch('produtos.json');
         produtos = await response.json();
         renderProdutos(produtos);
     } catch (error) {
-        console.error("Erro ao carregar perfumes:", error);
+        console.error("Erro ao carregar dados:", error);
     }
 }
 
@@ -17,11 +16,15 @@ function renderProdutos(lista) {
     container.innerHTML = "";
 
     lista.forEach(p => {
+        // Define a cor baseada no tipo para o card individual
+        const corDestaque = p.tipo === 'feminino' ? 'var(--feminino)' : 'var(--masculino)';
+        
         container.innerHTML += `
-            <div class="card">
-                <img src="${p.imagem}" alt="${p.nome}" loading="lazy">
+            <div class="card" style="border-bottom: 4px solid ${corDestaque}">
+                <span class="ml-tag">${p.ml || '100ML'}</span>
+                <img src="${p.imagem}" alt="${p.nome}">
                 <h3>${p.nome}</h3>
-                <span class="price">R$ ${p.preco.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                <span class="preco" style="color: ${corDestaque}">R$ ${p.preco.toFixed(2)}</span>
                 <button class="btn-add" onclick="addCarrinho('${p.nome}', ${p.preco})">
                     Adicionar ao Carrinho
                 </button>
@@ -31,30 +34,26 @@ function renderProdutos(lista) {
 }
 
 function filtrar(tipo) {
-    // Altera o tema visual do body (muda as cores no CSS)
     document.body.className = `tema-${tipo}`;
-
-    // Atualiza estado dos botões
     document.querySelectorAll('.btn-filtro').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.tipo === tipo);
     });
 
-    // Filtra a lógica
     const filtrados = tipo === 'todos' ? produtos : produtos.filter(p => p.tipo === tipo);
     renderProdutos(filtrados);
 }
 
 function addCarrinho(nome, preco) {
     carrinho.push({ nome, preco });
-    atualizarInterfaceCarrinho();
+    atualizarCarrinho();
 }
 
 function removerItem(index) {
     carrinho.splice(index, 1);
-    atualizarInterfaceCarrinho();
+    atualizarCarrinho();
 }
 
-function atualizarInterfaceCarrinho() {
+function atualizarCarrinho() {
     const lista = document.getElementById("lista-carrinho");
     const totalEl = document.getElementById("total");
     const countEl = document.getElementById("cart-count");
@@ -68,35 +67,23 @@ function atualizarInterfaceCarrinho() {
         carrinho.forEach((item, index) => {
             lista.innerHTML += `
                 <div class="cart-item">
-                    <div>
-                        <p style="font-weight:600">${item.nome}</p>
-                        <small>R$ ${item.preco.toFixed(2)}</small>
-                    </div>
-                    <button onclick="removerItem(${index})">Remover</button>
+                    <span>${item.nome}</span>
+                    <strong>R$ ${item.preco.toFixed(2)}</strong>
+                    <button onclick="removerItem(${index})" style="color:red; background:none; border:none; cursor:pointer;">X</button>
                 </div>
             `;
             total += item.preco;
         });
     }
 
-    totalEl.innerText = `R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+    totalEl.innerText = `R$ ${total.toFixed(2)}`;
     countEl.innerText = `${carrinho.length} itens`;
 }
 
 function finalizarCompra() {
-    if (carrinho.length === 0) return alert("Adicione itens antes de finalizar!");
-
-    const numeroWhats = "5599999999999"; // Substitua pelo seu número
-    let texto = "🚀 *Novo Pedido - Luxury Fragrance*\n\n";
-    
-    carrinho.forEach(item => {
-        texto += `• ${item.nome} - R$ ${item.preco}\n`;
-    });
-    
-    const total = carrinho.reduce((sum, item) => sum + item.preco, 0);
-    texto += `\n*Total: R$ ${total.toFixed(2)}*`;
-
-    window.open(`https://wa.me/${numeroWhats}?text=${encodeURIComponent(texto)}`);
+    if (carrinho.length === 0) return alert("Carrinho vazio!");
+    const msg = encodeURIComponent(`Olá LumiPerfum! Gostaria de encomendar:\n${carrinho.map(i => `- ${i.nome}`).join('\n')}\nTotal: R$ ${document.getElementById("total").innerText}`);
+    window.open(`https://wa.me/5599999999999?text=${msg}`);
 }
 
 carregarDados();
