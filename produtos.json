@@ -1,26 +1,20 @@
 [
   {
-    "nome": "Sauvage Elixir",
-    "preco": 980,
+    "nome": "Sauvage Dior",
+    "preco": 850.00,
     "tipo": "masculino",
-    "imagem": "https://m.media-amazon.com/images/I/61fP6408SdL._AC_SL1000_.jpg"
-  },
-  {
-    "nome": "Libre Intense",
-    "preco": 750,
-    "tipo": "feminino",
-    "imagem": "https://m.media-amazon.com/images/I/51v68m6K0DL._AC_SL1000_.jpg"
-  },
-  {
-    "nome": "Bleu de Chanel",
-    "preco": 890,
-    "tipo": "masculino",
-    "imagem": "https://m.media-amazon.com/images/I/41K995zG2UL.jpg"
+    "imagem": "https://m.media-amazon.com/images/I/51A9TjX+t0L._SL1000_.jpg"
   },
   {
     "nome": "Good Girl Blush",
-    "preco": 720,
+    "preco": 720.50,
     "tipo": "feminino",
     "imagem": "https://m.media-amazon.com/images/I/51pI-a6C-4L._SL1000_.jpg"
+  },
+  {
+    "nome": "Bleu de Chanel",
+    "preco": 900.00,
+    "tipo": "masculino",
+    "imagem": "https://m.media-amazon.com/images/I/41K995zG2UL.jpg"
   }
 ]
