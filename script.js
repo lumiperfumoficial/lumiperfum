@@ -1,16 +1,13 @@
 let produtos = [];
 let carrinho = [];
 
-// Carrega dados com carimbo de tempo para evitar cache do navegador
 async function carregarDados() {
     try {
-        const cacheBuster = `?t=${new Date().getTime()}`;
-        const response = await fetch('produtos.json' + cacheBuster);
-        produtos = await response.json();
+        // O "?t=" impede o navegador de "viciar" no código antigo e não mostrar o perfume novo
+        const res = await fetch(`produtos.json?t=${new Date().getTime()}`);
+        produtos = await res.json();
         renderProdutos(produtos);
-    } catch (error) {
-        console.error("Erro ao sincronizar estoque:", error);
-    }
+    } catch (e) { console.error(e); }
 }
 
 function renderProdutos(lista) {
@@ -18,18 +15,16 @@ function renderProdutos(lista) {
     container.innerHTML = "";
 
     lista.forEach(p => {
-        // Define a cor de destaque individual por perfume
-        const color = p.tipo === 'feminino' ? 'var(--accent-fem)' : 'var(--accent-masc)';
-        
+        const cor = p.tipo === 'feminino' ? 'var(--fem)' : 'var(--masc)';
         container.innerHTML += `
-            <div class="card" style="border-bottom: 4px solid ${color}">
-                <span class="ml-badge">${p.ml || '100ML'}</span>
-                <img src="${p.imagem}" alt="${p.nome}" loading="lazy">
+            <div class="card">
+                <div class="ml-tag">${p.ml || '100ML'}</div>
+                <div class="img-box">
+                    <img src="${p.imagem}" alt="${p.nome}">
+                </div>
                 <h3>${p.nome}</h3>
-                <span class="price" style="color: ${color}">R$ ${p.preco.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
-                <button class="btn-add" onclick="addCarrinho('${p.nome}', ${p.preco})">
-                    Adicionar ao Carrinho
-                </button>
+                <span class="preco" style="color: ${cor}">R$ ${p.preco.toFixed(2)}</span>
+                <button class="btn-comprar" onclick="addCarrinho('${p.nome}', ${p.preco})">Adicionar</button>
             </div>
         `;
     });
@@ -37,66 +32,34 @@ function renderProdutos(lista) {
 
 function filtrar(tipo) {
     document.body.className = `tema-${tipo}`;
-    
     document.querySelectorAll('.btn-filtro').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.tipo === tipo);
+        btn.classList.toggle('active', btn.innerText.toLowerCase() === tipo || (tipo === 'todos' && btn.innerText === 'Todos'));
     });
-
     const filtrados = tipo === 'todos' ? produtos : produtos.filter(p => p.tipo === tipo);
     renderProdutos(filtrados);
 }
 
 function addCarrinho(nome, preco) {
     carrinho.push({ nome, preco });
-    atualizarInterface();
+    atualizarCarrinho();
 }
 
-function removerItem(index) {
-    carrinho.splice(index, 1);
-    atualizarInterface();
-}
-
-function atualizarInterface() {
+function atualizarCarrinho() {
     const lista = document.getElementById("lista-carrinho");
     const totalEl = document.getElementById("total");
-    const countEl = document.getElementById("cart-count");
-    
     lista.innerHTML = "";
     let total = 0;
 
-    if (carrinho.length === 0) {
-        lista.innerHTML = '<p class="empty-msg">Nenhuma fragrância selecionada.</p>';
-    } else {
-        carrinho.forEach((item, index) => {
-            lista.innerHTML += `
-                <div class="cart-item">
-                    <div>
-                        <p style="font-weight:600; font-size: 14px;">${item.nome}</p>
-                        <small style="color:#94a3b8">R$ ${item.preco.toFixed(2)}</small>
-                    </div>
-                    <button onclick="removerItem(${index})" style="color:#ef4444; background:none; border:none; cursor:pointer; font-weight:800;">×</button>
-                </div>
-            `;
-            total += item.preco;
-        });
-    }
-
-    totalEl.innerText = `R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-    countEl.innerText = `${carrinho.length} produtos`;
+    carrinho.forEach((item, i) => {
+        lista.innerHTML += `<div class="cart-item"><span>${item.nome}</span><strong>R$ ${item.preco}</strong></div>`;
+        total += item.preco;
+    });
+    totalEl.innerText = `R$ ${total.toFixed(2)}`;
 }
 
 function finalizarCompra() {
-    if (carrinho.length === 0) return alert("Seu carrinho está vazio!");
-
-    const numeroLoja = "5599999999999"; // Seu WhatsApp
-    let pedido = "💎 *LumiPerfum - Novo Pedido*\n\n";
-    
-    carrinho.forEach(i => pedido += `▪️ ${i.nome} - R$ ${i.preco.toFixed(2)}\n`);
-    
-    const total = carrinho.reduce((sum, item) => sum + item.preco, 0);
-    pedido += `\n*TOTAL: R$ ${total.toFixed(2)}*`;
-
-    window.open(`https://wa.me/${numeroLoja}?text=${encodeURIComponent(pedido)}`);
+    const msg = encodeURIComponent(`Pedido LumiPerfum:\n${carrinho.map(i => i.nome).join('\n')}\nTotal: ${document.getElementById("total").innerText}`);
+    window.open(`https://wa.me/5599999999999?text=${msg}`);
 }
 
 carregarDados();
