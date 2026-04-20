@@ -1,45 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sua Loja | Premium</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Perfumery | Sistema Profissional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="tema-todos">
 
-<header>
-  <h1>Sua Loja<span>.</span></h1>
-  <p>Encontre a fragrância que define você</p>
+<header class="main-header">
+    <div class="logo">LUXURY<span>FRAGRANCE</span></div>
+    <nav class="filtros">
+        <button class="btn-filtro active" data-tipo="todos" onclick="filtrar('todos')">Todos</button>
+        <button class="btn-filtro" data-tipo="masculino" onclick="filtrar('masculino')">Masculino</button>
+        <button class="btn-filtro" data-tipo="feminino" onclick="filtrar('feminino')">Feminino</button>
+    </nav>
 </header>
 
-<section class="filtros">
-  <button class="active" onclick="filtrar('todos')">Todos</button>
-  <button onclick="filtrar('masculino')">Masculino</button>
-  <button onclick="filtrar('feminino')">Feminino</button>
-</section>
-
 <main class="container">
-  <section id="produtos" class="grid"></section>
+    <section id="produtos" class="product-grid"></section>
 
-  <aside class="carrinho-container">
-    <section class="carrinho">
-      <h2>Seu Carrinho</h2>
-      <div id="lista-carrinho" class="carrinho-scroll"></div>
-      <div class="carrinho-footer">
-        <div class="total-box">
-          <span>Total</span>
-          <h3 id="total">R$ 0</h3>
+    <aside class="sidebar">
+        <div class="cart-card">
+            <div class="cart-header">
+                <h2>Meu Carrinho</h2>
+                <span id="cart-count">0 itens</span>
+            </div>
+            
+            <div id="lista-carrinho" class="cart-items">
+                <p class="empty-msg">O carrinho está vazio.</p>
+            </div>
+
+            <div class="cart-footer">
+                <div class="total-container">
+                    <span>Total Estimado:</span>
+                    <strong id="total">R$ 0,00</strong>
+                </div>
+                <button class="btn-checkout" onclick="finalizarCompra()">
+                    Finalizar via WhatsApp
+                </button>
+            </div>
         </div>
-        <button class="btn-finalizar" onclick="finalizarCompra()">
-          Finalizar no WhatsApp
-        </button>
-      </div>
-    </section>
-  </aside>
+    </aside>
 </main>
 
 <script src="script.js"></script>
