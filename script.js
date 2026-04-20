@@ -1,95 +1,102 @@
 let produtos = [];
 let carrinho = [];
 
-fetch('produtos.json')
-  .then(res => res.json())
-  .then(data => {
-    produtos = data;
-    renderProdutos(produtos);
-  });
+// Carregamento inicial dos dados
+async function carregarDados() {
+    try {
+        const response = await fetch('produtos.json');
+        produtos = await response.json();
+        renderProdutos(produtos);
+    } catch (error) {
+        console.error("Erro ao carregar perfumes:", error);
+    }
+}
 
 function renderProdutos(lista) {
-  const container = document.getElementById("produtos");
-  container.innerHTML = "";
+    const container = document.getElementById("produtos");
+    container.innerHTML = "";
 
-  lista.forEach(prod => {
-    container.innerHTML += `
-      <div class="card">
-        <img src="${prod.imagem}" alt="${prod.nome}">
-        <h3>${prod.nome}</h3>
-        <p>R$ ${prod.preco}</p>
-        <button onclick="addCarrinho('${prod.nome}', ${prod.preco})">
-          Adicionar ao Carrinho
-        </button>
-      </div>
-    `;
-  });
+    lista.forEach(p => {
+        container.innerHTML += `
+            <div class="card">
+                <img src="${p.imagem}" alt="${p.nome}" loading="lazy">
+                <h3>${p.nome}</h3>
+                <span class="price">R$ ${p.preco.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                <button class="btn-add" onclick="addCarrinho('${p.nome}', ${p.preco})">
+                    Adicionar ao Carrinho
+                </button>
+            </div>
+        `;
+    });
 }
 
 function filtrar(tipo) {
-  // Atualiza botões ativos
-  document.querySelectorAll('.filtros button').forEach(btn => {
-    btn.classList.remove('active');
-    if(btn.innerText.toLowerCase() === tipo) btn.classList.add('active');
-  });
+    // Altera o tema visual do body (muda as cores no CSS)
+    document.body.className = `tema-${tipo}`;
 
-  if (tipo === "todos") {
-    renderProdutos(produtos);
-  } else {
-    const filtrados = produtos.filter(p => p.tipo === tipo);
+    // Atualiza estado dos botões
+    document.querySelectorAll('.btn-filtro').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tipo === tipo);
+    });
+
+    // Filtra a lógica
+    const filtrados = tipo === 'todos' ? produtos : produtos.filter(p => p.tipo === tipo);
     renderProdutos(filtrados);
-  }
 }
 
 function addCarrinho(nome, preco) {
-  carrinho.push({ nome, preco });
-  atualizarCarrinho();
-  
-  // Feedback visual no botão
-  const btn = event.target;
-  const originalText = btn.innerText;
-  btn.innerText = "Adicionado! ✓";
-  btn.style.backgroundColor = "#10b981";
-  
-  setTimeout(() => {
-    btn.innerText = originalText;
-    btn.style.backgroundColor = "";
-  }, 1000);
+    carrinho.push({ nome, preco });
+    atualizarInterfaceCarrinho();
 }
 
-function atualizarCarrinho() {
-  const lista = document.getElementById("lista-carrinho");
-  lista.innerHTML = "";
+function removerItem(index) {
+    carrinho.splice(index, 1);
+    atualizarInterfaceCarrinho();
+}
 
-  let total = 0;
+function atualizarInterfaceCarrinho() {
+    const lista = document.getElementById("lista-carrinho");
+    const totalEl = document.getElementById("total");
+    const countEl = document.getElementById("cart-count");
+    
+    lista.innerHTML = "";
+    let total = 0;
 
-  carrinho.forEach((item, index) => {
-    lista.innerHTML += `
-      <div class="carrinho-item">
-        <span>${item.nome}</span>
-        <strong>R$ ${item.preco}</strong>
-      </div>
-    `;
-    total += item.preco;
-  });
+    if (carrinho.length === 0) {
+        lista.innerHTML = '<p class="empty-msg">O carrinho está vazio.</p>';
+    } else {
+        carrinho.forEach((item, index) => {
+            lista.innerHTML += `
+                <div class="cart-item">
+                    <div>
+                        <p style="font-weight:600">${item.nome}</p>
+                        <small>R$ ${item.preco.toFixed(2)}</small>
+                    </div>
+                    <button onclick="removerItem(${index})">Remover</button>
+                </div>
+            `;
+            total += item.preco;
+        });
+    }
 
-  document.getElementById("total").innerText = `R$ ${total}`;
+    totalEl.innerText = `R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+    countEl.innerText = `${carrinho.length} itens`;
 }
 
 function finalizarCompra() {
-  if (carrinho.length === 0) return alert("Seu carrinho está vazio!");
+    if (carrinho.length === 0) return alert("Adicione itens antes de finalizar!");
 
-  let mensagem = "Olá! Gostaria de fazer o seguinte pedido:%0A%0A";
+    const numeroWhats = "5599999999999"; // Substitua pelo seu número
+    let texto = "🚀 *Novo Pedido - Luxury Fragrance*\n\n";
+    
+    carrinho.forEach(item => {
+        texto += `• ${item.nome} - R$ ${item.preco}\n`;
+    });
+    
+    const total = carrinho.reduce((sum, item) => sum + item.preco, 0);
+    texto += `\n*Total: R$ ${total.toFixed(2)}*`;
 
-  carrinho.forEach(item => {
-    mensagem += `• ${item.nome} - R$ ${item.preco}%0A`;
-  });
-
-  let total = carrinho.reduce((s, i) => s + i.preco, 0);
-  mensagem += `%0A*Total: R$ ${total}*`;
-
-  const numero = "5599999999999"; // SEU WHATSAPP
-  const url = `https://wa.me/${numero}?text=${mensagem}`;
-
-  window.open(url, "_blank");
+    window.open(`https://wa.me/${numeroWhats}?text=${encodeURIComponent(texto)}`);
 }
+
+carregarDados();
