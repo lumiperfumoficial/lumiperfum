@@ -2,64 +2,80 @@ let produtos = [];
 let carrinho = [];
 
 async function carregarDados() {
-    try {
-        // O "?t=" impede o navegador de "viciar" no código antigo e não mostrar o perfume novo
-        const res = await fetch(`produtos.json?t=${new Date().getTime()}`);
-        produtos = await res.json();
-        renderProdutos(produtos);
-    } catch (e) { console.error(e); }
+    const res = await fetch(`produtos.json?t=${new Date().getTime()}`);
+    produtos = await res.json();
+    renderProdutos(produtos);
 }
 
 function renderProdutos(lista) {
     const container = document.getElementById("produtos");
     container.innerHTML = "";
-
     lista.forEach(p => {
-        const cor = p.tipo === 'feminino' ? 'var(--fem)' : 'var(--masc)';
         container.innerHTML += `
             <div class="card">
-                <div class="ml-tag">${p.ml || '100ML'}</div>
-                <div class="img-box">
-                    <img src="${p.imagem}" alt="${p.nome}">
-                </div>
-                <h3>${p.nome}</h3>
-                <span class="preco" style="color: ${cor}">R$ ${p.preco.toFixed(2)}</span>
-                <button class="btn-comprar" onclick="addCarrinho('${p.nome}', ${p.preco})">Adicionar</button>
+                ${p.desconto ? `<div class="promo-tag">-${p.desconto}%</div>` : ''}
+                <img src="${p.imagem}" alt="${p.nome}">
+                <div class="beneficio-tag">${p.beneficio || 'FRETE GRÁTIS'}</div>
+                <h3>LumiPerfum</h3>
+                <h2>${p.nome} - ${p.ml}</h2>
+                <span class="price-old">R$ ${p.precoAntigo || ''}</span>
+                <span class="price-new">R$ ${p.precoAtual.toFixed(2)}</span>
+                <button class="btn-add-sacola" onclick="addSacola('${p.nome}', ${p.precoAtual})">+</button>
             </div>
         `;
     });
 }
 
-function filtrar(tipo) {
-    document.body.className = `tema-${tipo}`;
-    document.querySelectorAll('.btn-filtro').forEach(btn => {
-        btn.classList.toggle('active', btn.innerText.toLowerCase() === tipo || (tipo === 'todos' && btn.innerText === 'Todos'));
-    });
-    const filtrados = tipo === 'todos' ? produtos : produtos.filter(p => p.tipo === tipo);
-    renderProdutos(filtrados);
+function addSacola(nome, preco) {
+    carrinho.push({ nome, preco });
+    document.getElementById('cart-sidebar').classList.add('active');
+    atualizarCarrinho();
 }
 
-function addCarrinho(nome, preco) {
-    carrinho.push({ nome, preco });
-    atualizarCarrinho();
+function toggleCart() {
+    document.getElementById('cart-sidebar').classList.toggle('active');
 }
 
 function atualizarCarrinho() {
     const lista = document.getElementById("lista-carrinho");
-    const totalEl = document.getElementById("total");
     lista.innerHTML = "";
     let total = 0;
-
     carrinho.forEach((item, i) => {
-        lista.innerHTML += `<div class="cart-item"><span>${item.nome}</span><strong>R$ ${item.preco}</strong></div>`;
+        lista.innerHTML += `
+            <div class="cart-item">
+                <span>${item.nome}</span>
+                <strong>R$ ${item.preco.toFixed(2)}</strong>
+                <button onclick="removerItem(${i})" style="border:none; background:none; color:red; cursor:pointer;">Remover</button>
+            </div>`;
         total += item.preco;
     });
-    totalEl.innerText = `R$ ${total.toFixed(2)}`;
+    document.getElementById("total").innerText = `R$ ${total.toFixed(2)}`;
+    document.getElementById("cart-count").innerText = `${carrinho.length} itens`;
+}
+
+function removerItem(i) {
+    carrinho.splice(i, 1);
+    atualizarCarrinho();
 }
 
 function finalizarCompra() {
-    const msg = encodeURIComponent(`Pedido LumiPerfum:\n${carrinho.map(i => i.nome).join('\n')}\nTotal: ${document.getElementById("total").innerText}`);
-    window.open(`https://wa.me/5599999999999?text=${msg}`);
+    if (carrinho.length === 0) return alert("Sua sacola está vazia!");
+    
+    const formaPagamento = document.getElementById('metodo-pagamento').value;
+    let total = 0;
+    let mensagem = "🛍️ *NOVO PEDIDO - LUMIPERFUM*\n\n";
+    
+    carrinho.forEach(item => {
+        mensagem += `• ${item.nome} - R$ ${item.preco.toFixed(2)}\n`;
+        total += item.preco;
+    });
+
+    mensagem += `\n💰 *Total:* R$ ${total.toFixed(2)}`;
+    mensagem += `\n💳 *Forma de Pagamento:* ${formaPagamento}`;
+    mensagem += `\n\n_Aguardando confirmação do vendedor..._`;
+
+    const numero = "5599999999999"; // SEU WHATSAPP
+    window.open(`https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`);
 }
 
 carregarDados();
