@@ -233,6 +233,90 @@ body {
     transition: right 0.3s ease;
 }
 
+/* --- BANNER PRINCIPAL (HERO) --- */
+.hero-banner {
+    background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+    color: #ffffff;
+    padding: 80px 5%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #374151;
+}
+
+/* Esse é o brilho roxo de fundo que dá o toque de perfumaria de luxo */
+.hero-glow {
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(192, 132, 252, 0.15) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(192, 132, 252, 0.15);
+    color: var(--primary);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(192, 132, 252, 0.3);
+}
+
+.hero-banner h1 {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero-banner h1 span {
+    color: var(--primary);
+}
+
+.hero-banner p {
+    font-size: 18px;
+    color: #9ca3af;
+    margin-bottom: 35px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+.hero-btn {
+    display: inline-block;
+    background: var(--primary);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 16px 40px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 800;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 15px rgba(192, 132, 252, 0.3);
+}
+
+.hero-btn:hover {
+    background: #a855f7;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(192, 132, 252, 0.6);
+}
+/* ------------------------------------------- */
 .sidebar.active { right: 0; }
 
 .cart-card { padding: 25px; display: flex; flex-direction: column; height: 100%; }
