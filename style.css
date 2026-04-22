@@ -25,7 +25,7 @@ body {
 
 /* --- CABEÇALHO FIXO E BUSCA --- */
 .main-header {
-    background: rgba(9, 9, 11, 0.95); /* Fundo de vidro escuro */
+    background: rgba(56, 6, 20, 0.98); /* Rosa Vinho Profundo (Mais escuro que o banner) */
     backdrop-filter: blur(10px);
     padding: 0 5%;
     display: flex;
