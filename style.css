@@ -102,12 +102,12 @@ body {
 /* --- BANNER PRINCIPAL (SEXY LUXURY) --- */
 .hero-banner {
     background-image: url('img/lumi_fundo.png');
-    background-color: #f7f3ee; /* Cor exata do fundo da sua imagem */
-    background-size: contain; /* Mostra a imagem INTEIRA sem cortar as estrelas */
+    background-color: #f7f3ee; /* Mantendo a cor de fundo da foto */
+    background-size: cover; /* Cobre tudo e mantém a logo grande */
     background-position: center center;
     background-repeat: no-repeat;
-    color: #590d22; /* Texto em vinho escuro para aparecer no fundo claro */
-    padding: 140px 5% 80px 5%; /* Aumentei o espaço para a logo aparecer bem */
+    color: #ffffff; /* TODAS as letras brancas por padrão */
+    padding: 130px 5% 70px 5%; /* Ajuste de espaço para a logo centralizada */
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -147,11 +147,12 @@ body {
 .hero-banner h1 {
     font-family: 'Montserrat', sans-serif;
     font-size: 38px;
-    font-weight: 300;
+    font-weight: 700; /* GROSSA: Negrito forte como pedido */
     margin-bottom: 12px;
     line-height: 1.1;
     letter-spacing: -0.5px;
-    color: #590d22; /* Vinho escuro luxo */
+    color: #ffffff; /* Branca */
+    text-shadow: 2px 2px 5px #000000; /* Sombra preta forte para destaque */
 }
 
 .hero-banner h1 span {
@@ -163,13 +164,14 @@ body {
 .hero-banner p {
     font-family: 'Jost', sans-serif;
     font-size: 15px;
-    color: #590d22; /* Vinho escuro */
+    color: #ffffff; /* Branca */
     margin-bottom: 25px;
-    font-weight: 400;
+    font-weight: 400; /* Levemente mais legível que 300 */
     max-width: 550px;
     margin-left: auto;
     margin-right: auto;
     line-height: 1.6;
+    text-shadow: 1px 1px 3px #000000; /* Sombra preta para leitura */
 }
 
 .hero-btn {
