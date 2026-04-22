@@ -25,7 +25,7 @@ body {
 
 /* --- CABEÇALHO FIXO E BUSCA --- */
 .main-header {
-    background: rgba(9, 9, 11, 0.95);
+    background: #c9184a;
     backdrop-filter: blur(10px);
     padding: 0 5%;
     display: flex;
