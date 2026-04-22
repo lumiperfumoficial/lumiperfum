@@ -157,16 +157,15 @@ body {
     line-height: 1.1;
     letter-spacing: -0.5px;
     color: #ffffff;
-    /* SOMBRA PESADA PARA DAR LEITURA */
-    text-shadow: 3px 3px 10px #000000, -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
+    /* SOMBRA REAL: 5px para o lado, 5px para baixo e 15px de fumaça preta */
+    text-shadow: 5px 5px 15px rgba(0, 0, 0, 0.8);
 }
 
 .hero-banner h1 span {
-    color: #ffffff; /* FORÇANDO BRANCO AQUI */
+    color: #ffffff !important; /* Forçando o branco no Marcam */
     font-weight: 700;
     font-style: normal;
-    /* MESMA SOMBRA PESADA */
-    text-shadow: 3px 3px 10px #000000, -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
+    text-shadow: 5px 5px 15px rgba(0, 0, 0, 0.8);
 }
 
 .hero-banner p {
@@ -179,8 +178,8 @@ body {
     margin-left: auto;
     margin-right: auto;
     line-height: 1.6;
-    /* SOMBRA NO TEXTO MENOR */
-    text-shadow: 2px 2px 5px #000000;
+    /* Sombra projetada para não sumir no bege */
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
 }
 /* ------------------------------------------- */
 
