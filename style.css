@@ -106,7 +106,7 @@ body {
     background-size: cover; 
     background-position: center center;
     background-repeat: no-repeat;
-    min-height: 450px; /* Garante que o banner tenha uma altura mínima legal */
+    min-height: 450px; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -118,6 +118,7 @@ body {
     overflow: hidden;
     margin-bottom: 30px;
 }
+
 .hero-glow {
     position: absolute;
     top: -50%;
@@ -139,62 +140,47 @@ body {
 
 .hero-badge {
     display: inline-block;
-    font-family: 'Jost', sans-serif; /* Fonte super moderna */
+    font-family: 'Jost', sans-serif;
     color: var(--primary);
     font-size: 13px;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 4px; /* Espaçamento largo de marca de luxo */
+    letter-spacing: 4px;
     margin-bottom: 10px;
 }
 
-.hero-banner h1 span {
-    color: #ffffff; /* Agora branca para combinar com o resto */
-    font-weight: 700; /* Grossa igual ao restante do título */
-    font-style: normal;
-    text-shadow: 2px 2px 5px #000000; /* Sombra preta para destacar */
+.hero-banner h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    /* SOMBRA PESADA PARA DAR LEITURA */
+    text-shadow: 3px 3px 10px #000000, -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
 }
 
 .hero-banner h1 span {
-    color: #c9184a; /* Rosa destaque */
-    font-weight: 600;
+    color: #ffffff; /* FORÇANDO BRANCO AQUI */
+    font-weight: 700;
     font-style: normal;
+    /* MESMA SOMBRA PESADA */
+    text-shadow: 3px 3px 10px #000000, -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
 }
 
 .hero-banner p {
     font-family: 'Jost', sans-serif;
     font-size: 15px;
-    color: #ffffff; /* Branca */
+    color: #ffffff;
     margin-bottom: 25px;
-    font-weight: 400; /* Levemente mais legível que 300 */
+    font-weight: 400;
     max-width: 550px;
     margin-left: auto;
     margin-right: auto;
     line-height: 1.6;
-    text-shadow: 1px 1px 3px #000000; /* Sombra preta para leitura */
-}
-
-.hero-btn {
-    display: inline-block;
-    font-family: 'Montserrat', sans-serif;
-    background: transparent;
-    color: #ffffff;
-    text-decoration: none;
-    padding: 10px 30px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    border: 1px solid var(--primary);
-    transition: all 0.4s ease;
-}
-
-.hero-btn:hover {
-    background: var(--primary);
-    color: #2d0a0a;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    /* SOMBRA NO TEXTO MENOR */
+    text-shadow: 2px 2px 5px #000000;
 }
 /* ------------------------------------------- */
 
