@@ -101,31 +101,36 @@ body {
 
 .hero-badge {
     display: inline-block;
-    font-family: 'Great Vibes', cursive; 
+    font-family: 'Jost', sans-serif; /* Fonte super moderna */
     color: var(--primary);
-    font-size: 22px; /* Fonte reduzida */
-    margin-bottom: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 4px; /* Espaçamento largo de marca de luxo */
+    margin-bottom: 10px;
 }
 
 .hero-banner h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 38px; /* Fonte reduzida */
-    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 38px;
+    font-weight: 300; /* Letra mais fina e elegante */
     margin-bottom: 12px;
     line-height: 1.1;
-    letter-spacing: -1px;
+    letter-spacing: -0.5px;
 }
 
 .hero-banner h1 span {
     color: var(--primary);
-    font-style: italic;
+    font-weight: 600; /* Destaque em negrito forte, sem itálico */
+    font-style: normal;
 }
 
 .hero-banner p {
-    font-size: 14px; /* Fonte reduzida */
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 25px;
-    font-weight: 400;
+    font-weight: 300;
     max-width: 550px;
     margin-left: auto;
     margin-right: auto;
@@ -134,10 +139,11 @@ body {
 
 .hero-btn {
     display: inline-block;
+    font-family: 'Montserrat', sans-serif;
     background: transparent;
     color: #ffffff;
     text-decoration: none;
-    padding: 10px 30px; /* Botão mais estreito */
+    padding: 10px 30px;
     border-radius: 4px;
     font-size: 12px;
     font-weight: 600;
