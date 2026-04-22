@@ -101,15 +101,17 @@ body {
 
 /* --- BANNER PRINCIPAL (SEXY LUXURY) --- */
 .hero-banner {
-    background: var(--bg-luxury);
+    /* A MÁGICA: Película escura transparente + A sua foto de fundo */
+    background: linear-gradient(rgba(20, 5, 10, 0.6), rgba(20, 5, 10, 0.6)), url('lumi-fundo.png');
+    background-size: cover; /* Garante a alta resolução e cobre tudo */
+    background-position: center center; /* Trava a logo sempre no meio da tela */
+    background-repeat: no-repeat;
     color: #ffffff;
-    /* A MÁGICA DO TAMANHO AQUI: Cortei o tamanho pela metade */
     padding: 110px 5% 50px 5%; 
     text-align: center;
     position: relative;
     overflow: hidden;
     margin-bottom: 30px;
-}
 
 .hero-glow {
     position: absolute;
