@@ -102,7 +102,7 @@ body {
 /* --- BANNER PRINCIPAL (SEXY LUXURY) --- */
 .hero-banner {
     /* O caminho agora aponta direto para a sua pasta img */
-    background-image: url('img/lumi-fundo.png');
+    background-image: url('img/lumi_fundo.png');
     background-size: cover; 
     background-position: center center; 
     background-repeat: no-repeat;
