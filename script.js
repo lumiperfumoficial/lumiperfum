@@ -3,19 +3,9 @@ let carrinho = [];
 
 async function carregarDados() {
     try {
-        // 1. Carrega os produtos
         const res = await fetch(`produtos.json?t=${new Date().getTime()}`);
         produtos = await res.json();
         renderProdutos(produtos);
-        
-        // 2. Carrega as configurações do Painel (o número do zap)
-        const resConfig = await fetch(`config.json?t=${new Date().getTime()}`);
-        if (resConfig.ok) {
-            const config = await resConfig.json();
-            if (config.whatsapp) {
-                numeroWhatsapp = config.whatsapp; // Atualiza com o número que veio do painel
-            }
-        }
     } catch (e) { console.error("Erro ao carregar dados", e); }
 }
 
