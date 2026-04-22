@@ -1,70 +1,148 @@
-let produtosData = [];
+let produtos = [];
 let carrinho = [];
-let catFiltro = 'todos';
+let numeroWhatsapp = "";
 
-async function carregar() {
+async function carregarDados() {
     try {
-        const res = await fetch('produtos.json');
-        produtosData = await res.json();
-        render();
-    } catch (e) { console.log("Aguardando produtos do painel..."); }
+        const res = await fetch(`produtos.json?t=${new Date().getTime()}`);
+        produtos = await res.json();
+        renderProdutos(produtos);
+        
+        // Puxa o arquivo criado pelo painel
+        const resConfig = await fetch(`config.json?t=${new Date().getTime()}`);
+        if (resConfig.ok) {
+            const config = await resConfig.json();
+            // Puxa a chave "whatsapp" exatamente como está no seu JSON
+            numeroWhatsapp = config.whatsapp;
+        }
+    } catch (e) { 
+        console.error("Erro técnico: O site não conseguiu ler o config.json"); 
+    }
 }
 
-function render() {
-    const grid = document.getElementById('produtos');
-    const busca = document.getElementById('input-busca').value.toLowerCase();
+function renderProdutos(lista) {
+    const container = document.getElementById("produtos");
+    container.innerHTML = "";
 
-    const lista = produtosData.filter(p => {
-        const bateNome = p.nome.toLowerCase().includes(busca);
-        const bateCat = catFiltro === 'todos' || (p.categoria && p.categoria.toLowerCase() === catFiltro);
-        return bateNome && bateCat;
-    });
-
-    grid.innerHTML = lista.map(p => `
-        <div class="card">
-            <div class="tag-ml">${p.ml || '100ML'}</div>
-            <img src="${p.imagem}" onerror="this.src='https://via.placeholder.com/200?text=Sem+Foto'">
-            <span class="marca-txt">LUMIPERFUM</span>
-            <h3>${p.nome}</h3>
-            <span class="estoque-txt">Disponível</span>
-            <div class="card-footer">
-                <span class="preco">R$ ${p.preco}</span>
-                <button class="btn-add" onclick="addCarrinho('${p.nome}', '${p.preco}')">+</button>
+    lista.forEach(p => {
+        const oldPrice = p.precoAntigo ? `R$ ${p.precoAntigo.toFixed(2)}` : '';
+        const promoTag = p.desconto ? `<div class="promo-tag">-${p.desconto}%</div>` : '';
+        const benTag = p.beneficio ? `<div class="beneficio-tag">${p.beneficio}</div>` : '';
+        
+        // ADIÇÃO: Puxa a descrição do banco de dados (se houver)
+        const descHtml = p.descricao ? `<div class="card-desc">${p.descricao}</div>` : '';
+        
+        container.innerHTML += `
+            <div class="card">
+                <div class="tag-container">
+                    ${promoTag}
+                    ${benTag}
+                </div>
+                <div class="ml-badge">${p.ml || '100ML'}</div>
+                
+                <div class="img-box">
+                    <img src="${p.imagem}" alt="${p.nome}">
+                </div>
+                
+                <div class="card-brand">LumiPerfum</div>
+                <div class="card-title">${p.nome}</div>
+                
+                ${descHtml}
+                
+                <div class="price-area">
+                    <div class="price-box">
+                        <span class="price-old">${oldPrice}</span>
+                        <span class="price-new">R$ ${p.precoAtual.toFixed(2)}</span>
+                    </div>
+                    <button class="btn-add" onclick="addSacola('${p.nome}', ${p.precoAtual})">+</button>
+                </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    });
 }
 
-function filtrar(cat, btn) {
-    catFiltro = cat;
-    document.querySelectorAll('.btn-filtro').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    render();
+function filtrar(tipo) {
+    // Limpa a barra de busca se o cliente resolver clicar nos filtros normais
+    document.getElementById('input-busca').value = '';
+    
+    document.querySelectorAll('.btn-filtro').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tipo === tipo);
+    });
+    const filtrados = tipo === 'todos' ? produtos : produtos.filter(p => p.tipo === tipo);
+    renderProdutos(filtrados);
 }
 
-function buscarPerfume() { render(); }
-function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('active'); }
+// A MÁGICA DA BUSCA EM TEMPO REAL
+function buscarPerfume() {
+    const termo = document.getElementById('input-busca').value.toLowerCase();
+    
+    // Tira a cor dos botões de categoria, já que o cliente está digitando livremente
+    document.querySelectorAll('.btn-filtro').forEach(btn => btn.classList.remove('active'));
+    
+    const filtrados = produtos.filter(p => p.nome.toLowerCase().includes(termo));
+    renderProdutos(filtrados);
+}
 
-function addCarrinho(nome, preco) {
-    carrinho.push({nome, preco: parseFloat(preco.replace(',','.'))});
-    const lista = document.getElementById('lista-carrinho');
-    let total = 0;
-    
-    lista.innerHTML = carrinho.map(i => {
-        total += i.preco;
-        return `<div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:10px; border-bottom: 1px solid #eee; padding-bottom: 8px;">
-                    <span>${i.nome}</span><b>R$ ${i.preco.toFixed(2)}</b>
-                </div>`;
-    }).join('');
-    
-    document.getElementById('total').innerText = `R$ ${total.toFixed(2).replace('.',',')}`;
+function addSacola(nome, preco) {
+    carrinho.push({ nome, preco });
     document.getElementById('cart-sidebar').classList.add('active');
+    atualizarCarrinho();
+}
+
+function toggleCart() {
+    document.getElementById('cart-sidebar').classList.toggle('active');
+}
+
+function atualizarCarrinho() {
+    const lista = document.getElementById("lista-carrinho");
+    lista.innerHTML = "";
+    let total = 0;
+
+    if (carrinho.length === 0) {
+        lista.innerHTML = '<p class="empty-msg">Nenhum produto selecionado.</p>';
+    } else {
+        carrinho.forEach((item, i) => {
+            lista.innerHTML += `
+                <div class="cart-item">
+                    <div>
+                        <p style="font-weight:700; font-size:14px; margin-bottom:4px;">${item.nome}</p>
+                        <p style="color:#71717a; font-weight:600;">R$ ${item.preco.toFixed(2)}</p>
+                    </div>
+                    <button onclick="removerItem(${i})" style="border:none; background:none; color:#e11d48; font-weight:bold; cursor:pointer; font-size:14px;">Remover</button>
+                </div>`;
+            total += item.preco;
+        });
+    }
+    document.getElementById("total").innerText = `R$ ${total.toFixed(2)}`;
+}
+
+function removerItem(i) {
+    carrinho.splice(i, 1);
+    atualizarCarrinho();
 }
 
 function finalizarCompra() {
-    if(carrinho.length === 0) return alert("Sua sacola está vazia!");
-    let texto = `🌸 *Pedido LumiPerfum*%0A%0A` + carrinho.map(i => `- ${i.nome}`).join('%0A');
-    window.open(`https://wa.me/5569981009562?text=${texto}%0A%0ATotal: ${document.getElementById('total').innerText}`);
+    if (carrinho.length === 0) return alert("Sua sacola está vazia!");
+    
+    const formaPgto = document.getElementById('metodo-pagamento').value;
+    let total = 0;
+    let msg = "*PEDIDO LUMIPERFUM*\n\n";
+    
+    carrinho.forEach(item => {
+        // Usando um hífen (-) que é universal e não quebra
+        msg += `- ${item.nome} - R$ ${item.preco.toFixed(2)}\n`;
+        total += item.preco;
+    });
+
+    msg += `\n*Total da Compra:* R$ ${total.toFixed(2)}`;
+    msg += `\n*Forma de Pagamento:* ${formaPgto}\n\n_Aguardando confirmação..._`;
+
+    // Usa a variável dinâmica que veio do Painel
+   if (!numeroWhatsapp) {
+        alert("O número de vendas ainda não foi carregado. Aguarde um segundo e tente novamente.");
+        return;
+    }
+    window.open(`https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(msg)}`);
 }
 
-carregar();
+carregarDados();
