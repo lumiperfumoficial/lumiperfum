@@ -26,38 +26,39 @@ body {
 
 /* --- CABEÇALHO INTEGRADO (SEM FAIXA BRANCA) --- */
 .main-header {
-    background: transparent; /* Remove o branco */
-    padding: 30px 5%;
+    background: transparent;
+    padding: 15px 5%; /* Mais fino */
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: none;
     box-shadow: none;
-    position: absolute; /* Faz ele flutuar sobre o banner */
+    position: absolute; 
     width: 100%;
     top: 0;
     z-index: 100;
 }
 
 .logo { 
-    font-family: 'Playfair Display', serif; /* Fonte moderna e elegante */
+    font-family: 'Playfair Display', serif; 
     font-weight: 700; 
-    font-size: 28px; 
+    font-size: 22px; /* Menor e mais delicado */
     letter-spacing: 1px; 
-    color: #ffffff; /* Letra branca para destacar no fundo escuro */
+    color: #ffffff; 
 }
 .logo span { color: var(--primary); }
 
 .filtros button {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     color: #ffffff;
-    padding: 10px 22px;
-    border-radius: 30px; /* Mais arredondado = mais moderno */
+    padding: 8px 18px; /* Botões menores */
+    border-radius: 30px; 
     margin-left: 10px;
     cursor: pointer;
     font-weight: 600;
-    backdrop-filter: blur(10px); /* Efeito vidro chique */
+    font-size: 12px;
+    backdrop-filter: blur(10px); 
     transition: 0.3s;
 }
 
@@ -71,21 +72,21 @@ body {
 .hero-banner {
     background: var(--bg-luxury);
     color: #ffffff;
-    padding: 180px 5% 100px 5%; /* Espaço maior no topo para o menu flutuante */
+    /* A MÁGICA DO TAMANHO AQUI: Cortei o tamanho pela metade */
+    padding: 110px 5% 50px 5%; 
     text-align: center;
     position: relative;
     overflow: hidden;
     margin-bottom: 30px;
 }
 
-/* Brilho quente de fundo (Âmbar/Ouro) */
 .hero-glow {
     position: absolute;
-    top: -30%;
+    top: -50%;
     left: 50%;
     transform: translateX(-50%);
-    width: 800px;
-    height: 800px;
+    width: 600px;
+    height: 400px;
     background: radial-gradient(circle, rgba(212, 163, 115, 0.15) 0%, transparent 70%);
     z-index: 0;
     pointer-events: none;
@@ -94,23 +95,23 @@ body {
 .hero-content {
     position: relative;
     z-index: 1;
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
 .hero-badge {
     display: inline-block;
-    font-family: 'Great Vibes', cursive; /* Fonte caligráfica sexy */
+    font-family: 'Great Vibes', cursive; 
     color: var(--primary);
-    font-size: 26px;
-    margin-bottom: 10px;
+    font-size: 22px; /* Fonte reduzida */
+    margin-bottom: 5px;
 }
 
 .hero-banner h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 52px;
+    font-size: 38px; /* Fonte reduzida */
     font-weight: 400;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     line-height: 1.1;
     letter-spacing: -1px;
 }
@@ -121,14 +122,14 @@ body {
 }
 
 .hero-banner p {
-    font-size: 16px;
+    font-size: 14px; /* Fonte reduzida */
     color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 40px;
+    margin-bottom: 25px;
     font-weight: 400;
-    max-width: 600px;
+    max-width: 550px;
     margin-left: auto;
     margin-right: auto;
-    line-height: 1.8;
+    line-height: 1.6;
 }
 
 .hero-btn {
@@ -136,9 +137,9 @@ body {
     background: transparent;
     color: #ffffff;
     text-decoration: none;
-    padding: 14px 45px;
+    padding: 10px 30px; /* Botão mais estreito */
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
