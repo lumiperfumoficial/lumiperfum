@@ -102,18 +102,22 @@ body {
 /* --- BANNER PRINCIPAL (SEXY LUXURY) --- */
 .hero-banner {
     background-image: url('img/lumi_fundo.png');
-    background-color: #f7f3ee; /* Mantendo a cor de fundo da foto */
-    background-size: cover; /* Cobre tudo e mantém a logo grande */
+    background-color: #f7f3ee; 
+    background-size: cover; 
     background-position: center center;
     background-repeat: no-repeat;
-    color: #ffffff; /* TODAS as letras brancas por padrão */
-    padding: 130px 5% 70px 5%; /* Ajuste de espaço para a logo centralizada */
+    min-height: 450px; /* Garante que o banner tenha uma altura mínima legal */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #ffffff;
+    padding: 60px 5%; 
     text-align: center;
     position: relative;
     overflow: hidden;
     margin-bottom: 30px;
 }
-
 .hero-glow {
     position: absolute;
     top: -50%;
@@ -144,15 +148,11 @@ body {
     margin-bottom: 10px;
 }
 
-.hero-banner h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 38px;
-    font-weight: 700; /* GROSSA: Negrito forte como pedido */
-    margin-bottom: 12px;
-    line-height: 1.1;
-    letter-spacing: -0.5px;
-    color: #ffffff; /* Branca */
-    text-shadow: 2px 2px 5px #000000; /* Sombra preta forte para destaque */
+.hero-banner h1 span {
+    color: #ffffff; /* Agora branca para combinar com o resto */
+    font-weight: 700; /* Grossa igual ao restante do título */
+    font-style: normal;
+    text-shadow: 2px 2px 5px #000000; /* Sombra preta para destacar */
 }
 
 .hero-banner h1 span {
