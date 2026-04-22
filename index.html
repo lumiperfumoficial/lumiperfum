@@ -11,6 +11,11 @@
 
 <header class="main-header">
     <div class="logo">LUMI<span>PERFUM</span></div>
+    
+    <div class="box-busca">
+        <input type="text" id="input-busca" placeholder="🔍 Buscar perfume..." onkeyup="buscarPerfume()">
+    </div>
+
     <nav class="filtros">
         <button class="btn-filtro active" data-tipo="todos" onclick="filtrar('todos')">Todos</button>
         <button class="btn-filtro" data-tipo="masculino" onclick="filtrar('masculino')">Masculino</button>
