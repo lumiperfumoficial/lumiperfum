@@ -9,13 +9,12 @@
     --card-bg: #ffffff;
     --text-main: #1c1917;
     --text-muted: #71717a;
-    /* NOVO: Cor Ouro Rosê Sexy */
-    --primary: #d4a373; 
+    --primary: #d4a373; /* Tom Ouro Champanhe Moderno */
     --accent-btn: #10b981;
     --promo-red: #991b1b;
     --border-color: #e4e4e7;
-    /* NOVO: Gradiente Bordô Profundo */
-    --bg-luxury: linear-gradient(135deg, #2d0a0a 0%, #4a0404 100%);
+    /* Fundo Preto Meia-noite Ultra Moderno (Sem tons castanhos!) */
+    --bg-luxury: linear-gradient(135deg, #09090b 0%, #171717 100%);
 }
 
 body {
@@ -40,10 +39,10 @@ body {
 }
 
 .logo { 
-    font-family: 'Playfair Display', serif; 
-    font-weight: 700; 
-    font-size: 22px; /* Menor e mais delicado */
-    letter-spacing: 1px; 
+    font-family: 'Montserrat', sans-serif; /* Fonte limpa, moderna e sem serifas */
+    font-weight: 800; 
+    font-size: 24px; 
+    letter-spacing: 3px; /* Espaçamento premium */
     color: #ffffff; 
 }
 .logo span { color: var(--primary); }
