@@ -101,13 +101,13 @@ body {
 
 /* --- BANNER PRINCIPAL (SEXY LUXURY) --- */
 .hero-banner {
-    /* O caminho agora aponta direto para a sua pasta img */
     background-image: url('img/lumi_fundo.png');
-    background-size: cover; 
-    background-position: center center; 
+    background-color: #f7f3ee; /* Cor exata do fundo da sua imagem */
+    background-size: contain; /* Mostra a imagem INTEIRA sem cortar as estrelas */
+    background-position: center center;
     background-repeat: no-repeat;
-    color: #ffffff;
-    padding: 110px 5% 50px 5%; 
+    color: #590d22; /* Texto em vinho escuro para aparecer no fundo claro */
+    padding: 140px 5% 80px 5%; /* Aumentei o espaço para a logo aparecer bem */
     text-align: center;
     position: relative;
     overflow: hidden;
