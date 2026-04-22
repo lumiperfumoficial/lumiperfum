@@ -175,8 +175,8 @@ body {
     letter-spacing: -0.5px;
 }
 
-.hero-banner h1 span {
-    color: var(--primary);
+..hero-banner h1 span {
+    color: #ffffff;
     font-weight: 600; /* Destaque em negrito forte, sem itálico */
     font-style: normal;
 }
