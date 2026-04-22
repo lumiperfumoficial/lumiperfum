@@ -104,15 +104,15 @@ body {
     background-image: url('img/lumi_fundo.png');
     background-color: #f7f3ee; 
     background-size: cover; 
-    background-position: center center;
-    background-repeat: no-repeat;
-    min-height: 450px; 
+    background-position: center top; /* ISSO AQUI É A CHAVE: Garante que o topo (estrelas) nunca seja cortado */
+    aspect-ratio: 1920 / 600; /* Força o banner a ter o formato exato da sua imagem */
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     color: #ffffff;
-    padding: 60px 5%; 
+    padding: 0 5%; /* Removi o padding fixo para a proporção mandar na altura */
     text-align: center;
     position: relative;
     overflow: hidden;
