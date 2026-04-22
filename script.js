@@ -1,11 +1,22 @@
 let produtos = [];
 let carrinho = [];
+let numeroWhatsapp = "5599999999999"; // Número padrão de segurança caso o painel falhe
 
 async function carregarDados() {
     try {
+        // 1. Carrega os produtos
         const res = await fetch(`produtos.json?t=${new Date().getTime()}`);
         produtos = await res.json();
         renderProdutos(produtos);
+        
+        // 2. Carrega as configurações do Painel (o número do zap)
+        const resConfig = await fetch(`config.json?t=${new Date().getTime()}`);
+        if (resConfig.ok) {
+            const config = await resConfig.json();
+            if (config.whatsapp) {
+                numeroWhatsapp = config.whatsapp; // Atualiza com o número que veio do painel
+            }
+        }
     } catch (e) { console.error("Erro ao carregar dados", e); }
 }
 
@@ -125,7 +136,8 @@ function finalizarCompra() {
     msg += `\n💰 *Total da Compra:* R$ ${total.toFixed(2)}`;
     msg += `\n💳 *Forma de Pagamento:* ${formaPgto}\n\n_Aguardando confirmação..._`;
 
-    window.open(`https://wa.me/5599999999999?text=${encodeURIComponent(msg)}`);
+    // Usa a variável dinâmica que veio do Painel
+    window.open(`https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(msg)}`);
 }
 
 carregarDados();
