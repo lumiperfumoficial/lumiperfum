@@ -8,11 +8,16 @@ async function carregarDados() {
         produtos = await res.json();
         renderProdutos(produtos);
         
-        // Lê o arquivo que você já conferiu que está no GitHub
+        // Puxa o arquivo criado pelo painel
         const resConfig = await fetch(`config.json?t=${new Date().getTime()}`);
-        const config = await resConfig.json();
-        numeroWhatsapp = config.whatsapp;
-    } catch (e) { console.error("Erro ao ler número do GitHub", e); }
+        if (resConfig.ok) {
+            const config = await resConfig.json();
+            // Puxa a chave "whatsapp" exatamente como está no seu JSON
+            numeroWhatsapp = config.whatsapp;
+        }
+    } catch (e) { 
+        console.error("Erro técnico: O site não conseguiu ler o config.json"); 
+    }
 }
 
 function renderProdutos(lista) {
@@ -132,6 +137,10 @@ function finalizarCompra() {
     msg += `\n💳 *Forma de Pagamento:* ${formaPgto}\n\n_Aguardando confirmação..._`;
 
     // Usa a variável dinâmica que veio do Painel
+   if (!numeroWhatsapp) {
+        alert("O número de vendas ainda não foi carregado. Aguarde um segundo e tente novamente.");
+        return;
+    }
     window.open(`https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(msg)}`);
 }
 
