@@ -7,7 +7,7 @@ async function carregar() {
         const res = await fetch('produtos.json');
         produtosData = await res.json();
         render();
-    } catch (e) { console.log("Aguardando produtos.json..."); }
+    } catch (e) { console.log("Aguardando produtos do painel..."); }
 }
 
 function render() {
@@ -23,7 +23,7 @@ function render() {
     grid.innerHTML = lista.map(p => `
         <div class="card">
             <div class="tag-ml">${p.ml || '100ML'}</div>
-            <img src="${p.imagem}" onerror="this.src='https://via.placeholder.com/200'">
+            <img src="${p.imagem}" onerror="this.src='https://via.placeholder.com/200?text=Sem+Foto'">
             <span class="marca-txt">LUMIPERFUM</span>
             <h3>${p.nome}</h3>
             <span class="estoque-txt">Disponível</span>
@@ -52,7 +52,7 @@ function addCarrinho(nome, preco) {
     
     lista.innerHTML = carrinho.map(i => {
         total += i.preco;
-        return `<div style="display:flex; justify-content:space-between; font-size:15px; margin-bottom:10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
+        return `<div style="display:flex; justify-content:space-between; font-size:14px; margin-bottom:10px; border-bottom: 1px solid #eee; padding-bottom: 8px;">
                     <span>${i.nome}</span><b>R$ ${i.preco.toFixed(2)}</b>
                 </div>`;
     }).join('');
@@ -62,8 +62,8 @@ function addCarrinho(nome, preco) {
 }
 
 function finalizarCompra() {
-    if(carrinho.length === 0) return;
-    let texto = `🌸 *Pedido LumiPerfum*%0A` + carrinho.map(i => `- ${i.nome}`).join('%0A');
+    if(carrinho.length === 0) return alert("Sua sacola está vazia!");
+    let texto = `🌸 *Pedido LumiPerfum*%0A%0A` + carrinho.map(i => `- ${i.nome}`).join('%0A');
     window.open(`https://wa.me/5569981009562?text=${texto}%0A%0ATotal: ${document.getElementById('total').innerText}`);
 }
 
