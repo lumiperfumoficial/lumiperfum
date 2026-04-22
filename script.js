@@ -51,10 +51,24 @@ function renderProdutos(lista) {
 }
 
 function filtrar(tipo) {
+    // Limpa a barra de busca se o cliente resolver clicar nos filtros normais
+    document.getElementById('input-busca').value = '';
+    
     document.querySelectorAll('.btn-filtro').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.tipo === tipo);
     });
     const filtrados = tipo === 'todos' ? produtos : produtos.filter(p => p.tipo === tipo);
+    renderProdutos(filtrados);
+}
+
+// A MÁGICA DA BUSCA EM TEMPO REAL
+function buscarPerfume() {
+    const termo = document.getElementById('input-busca').value.toLowerCase();
+    
+    // Tira a cor dos botões de categoria, já que o cliente está digitando livremente
+    document.querySelectorAll('.btn-filtro').forEach(btn => btn.classList.remove('active'));
+    
+    const filtrados = produtos.filter(p => p.nome.toLowerCase().includes(termo));
     renderProdutos(filtrados);
 }
 
