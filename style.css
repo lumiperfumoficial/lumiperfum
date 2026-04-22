@@ -101,10 +101,11 @@ body {
 
 /* --- BANNER PRINCIPAL (SEXY LUXURY) --- */
 .hero-banner {
-    /* A MÁGICA: Película escura transparente + A sua foto de fundo */
-    background: linear-gradient(rgba(20, 5, 10, 0.6), rgba(20, 5, 10, 0.6)), url('lumi-fundo.png');
-    background-size: cover; /* Garante a alta resolução e cobre tudo */
-    background-position: center center; /* Trava a logo sempre no meio da tela */
+    /* Fundo base rosa. Se a foto carregar, o gradiente rosa escuro protege as letras brancas. Zero preto. */
+    background: linear-gradient(rgba(201, 24, 74, 0.6), rgba(89, 13, 34, 0.8)), url('image_9.png');
+    background-color: #c9184a;
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
     color: #ffffff;
     padding: 110px 5% 50px 5%; 
