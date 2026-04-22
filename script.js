@@ -1,6 +1,5 @@
 let produtos = [];
 let carrinho = [];
-let numeroWhatsapp = "5599999999999"; // Número padrão de segurança caso o painel falhe
 
 async function carregarDados() {
     try {
