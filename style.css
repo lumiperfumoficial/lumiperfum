@@ -25,21 +25,22 @@ body {
 
 /* --- CABEÇALHO FIXO E BUSCA --- */
 .main-header {
-    background: rgba(56, 6, 20, 0.98); /* Rosa Vinho Profundo (Mais escuro que o banner) */
+    background: rgba(56, 6, 20, 0.98); /* Rosa Vinho Profundo */
     backdrop-filter: blur(10px);
     padding: 0 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed; /* GRUDA NO TOPO DA TELA */
+    position: fixed; 
     width: 100%;
-    height: 80px; /* Altura exata definida */
+    height: 80px; 
     top: 0;
-    z-index: 9999; /* A prioridade máxima (acima da sacola) */
+    z-index: 9999; 
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .logo { 
+    flex: 1;
     font-family: 'Montserrat', sans-serif;
     font-weight: 800; 
     font-size: 24px; 
