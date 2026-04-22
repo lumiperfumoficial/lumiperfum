@@ -7,7 +7,12 @@ async function carregarDados() {
         const res = await fetch(`produtos.json?t=${new Date().getTime()}`);
         produtos = await res.json();
         renderProdutos(produtos);
-    } catch (e) { console.error("Erro ao carregar dados", e); }
+        
+        // Lê o arquivo que você já conferiu que está no GitHub
+        const resConfig = await fetch(`config.json?t=${new Date().getTime()}`);
+        const config = await resConfig.json();
+        numeroWhatsapp = config.whatsapp;
+    } catch (e) { console.error("Erro ao ler número do GitHub", e); }
 }
 
 function renderProdutos(lista) {
