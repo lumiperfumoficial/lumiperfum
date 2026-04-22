@@ -346,13 +346,16 @@ body {
 
 .btn-add:hover { background: #059669; }
 
-/* Sacola Lateral */
+/* Sacola Lateral Ajustada */
 .sidebar {
-    position: fixed; top: 0; right: -450px;
-    width: 400px; height: 100vh;
+    position: fixed; 
+    top: 80px; /* Começa exatamente abaixo do cabeçalho fixo */
+    right: -450px;
+    width: 400px; 
+    height: calc(100vh - 80px); /* Respeita o tamanho que sobrou da tela */
     background: var(--card-bg);
     box-shadow: -5px 0 25px rgba(0,0,0,0.1);
-    z-index: 1000;
+    z-index: 1000; /* Agora a sacola fica por baixo do cabeçalho */
     transition: right 0.3s ease;
 }
 
