@@ -13,8 +13,8 @@
     --accent-btn: #10b981;
     --promo-red: #991b1b;
     --border-color: #e4e4e7;
-    /* Fundo Rosa Moderno de Luxo com Efeito de Luz */
-    --bg-luxury: radial-gradient(circle at 50% 0%, #ffb8c6 0%, #ff5c8a 50%, #c9184a 100%);
+    /* Fundo Rosa Escuro Premium (Cereja/Vinho) com Efeito de Luz */
+    --bg-luxury: radial-gradient(circle at 50% 0%, #ff4d6d 0%, #c9184a 50%, #590d22 100%);
 }
 
 body {
