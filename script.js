@@ -126,15 +126,16 @@ function finalizarCompra() {
     
     const formaPgto = document.getElementById('metodo-pagamento').value;
     let total = 0;
-    let msg = "🛍️ *PEDIDO LUMIPERFUM*\n\n";
+    let msg = "*PEDIDO LUMIPERFUM*\n\n";
     
     carrinho.forEach(item => {
-        msg += `▪️ ${item.nome} - R$ ${item.preco.toFixed(2)}\n`;
+        // Usando um hífen (-) que é universal e não quebra
+        msg += `- ${item.nome} - R$ ${item.preco.toFixed(2)}\n`;
         total += item.preco;
     });
 
-    msg += `\n💰 *Total da Compra:* R$ ${total.toFixed(2)}`;
-    msg += `\n💳 *Forma de Pagamento:* ${formaPgto}\n\n_Aguardando confirmação..._`;
+    msg += `\n*Total da Compra:* R$ ${total.toFixed(2)}`;
+    msg += `\n*Forma de Pagamento:* ${formaPgto}\n\n_Aguardando confirmação..._`;
 
     // Usa a variável dinâmica que veio do Painel
    if (!numeroWhatsapp) {
