@@ -23,15 +23,6 @@
     </nav>
 </header>
 
-<section class="hero-banner">
-    <div class="hero-glow"></div>
-    <div class="hero-content">
-        <span class="hero-badge"></span>
-        <h1>Perfumes Que <span>Marcam</span> Presença.</h1>
-        <p>Descubra fragrâncias marcantes que transformam qualquer momento em uma experiência inesquecível.</p>
-    </div>
-</section>
-
 <main class="container">
     <section id="produtos" class="product-grid"></section>
 
@@ -49,7 +40,7 @@
             <div class="cart-footer">
                 <div class="payment-selection">
                     <label>Forma de Pagamento:</label>
-                    <select id="metodo-pagamento" onchange="toggleParcelas()">
+                    <select id="metodo-pagamento" onchange="atualizarInterfacePagamento()">
                         <option value="Pix">Pix </option>
                         <option value="Cartão de Crédito">Cartão de Crédito</option>
                         <option value="Cartão de Débito">Cartão de Débito</option>
@@ -58,20 +49,7 @@
 
                 <div id="campo-parcelas" style="display: none; margin-top: 10px;">
                     <label>Quantidade de Parcelas:</label>
-                    <select id="parcelas" style="width: 100%; padding: 5px; border-radius: 4px;">
-                        <option value="1x">1x</option>
-                        <option value="2x">2x</option>
-                        <option value="3x">3x</option>
-                        <option value="4x">4x</option>
-                        <option value="5x">5x</option>
-                        <option value="6x">6x</option>
-                        <option value="7x">7x</option>
-                        <option value="8x">8x</option>
-                        <option value="9x">9x</option>
-                        <option value="10x">10x</option>
-                        <option value="11x">11x</option>
-                        <option value="12x">12x</option>
-                    </select>
+                    <select id="parcelas" style="width: 100%; padding: 5px; border-radius: 4px;"></select>
                 </div>
 
                 <div class="total-row">
@@ -85,27 +63,59 @@
 </main>
 
 <script>
-    function toggleParcelas() {
+    function atualizarInterfacePagamento() {
         const metodo = document.getElementById('metodo-pagamento').value;
         const divParcelas = document.getElementById('campo-parcelas');
-        divParcelas.style.display = (metodo === 'Cartão de Crédito') ? 'block' : 'none';
+        
+        if (metodo === 'Cartão de Crédito') {
+            divParcelas.style.display = 'block';
+            gerarOpcoesParcelas();
+        } else {
+            divParcelas.style.display = 'none';
+        }
+    }
+
+    function gerarOpcoesParcelas() {
+        const totalElemento = document.getElementById('total');
+        const selectParcelas = document.getElementById('parcelas');
+        
+        // Pega o texto, remove "R$", remove pontos de milhar e troca vírgula por ponto
+        let valorTexto = totalElemento.innerText.replace("R$", "").trim();
+        valorTexto = valorTexto.replace(/\./g, "").replace(",", ".");
+        
+        const valorNumerico = parseFloat(valorTexto);
+
+        selectParcelas.innerHTML = ''; 
+
+        // Se o valor for válido, gera as parcelas
+        if (!isNaN(valorNumerico) && valorNumerico > 0) {
+            for (let i = 1; i <= 12; i++) {
+                const valorDividido = (valorNumerico / i).toFixed(2);
+                const valorFormatado = valorDividido.replace(".", ",");
+                
+                const option = document.createElement('option');
+                option.value = `${i}x de R$ ${valorFormatado}`;
+                option.text = `${i}x de R$ ${valorFormatado}`;
+                selectParcelas.appendChild(option);
+            }
+        }
     }
 
     function finalizarCompra() {
         const total = document.getElementById('total').innerText;
         const metodo = document.getElementById('metodo-pagamento').value;
-        let msg = `Olá! Gostaria de encomendar os produtos.\n\n*Total:* ${total}\n*Pagamento:* ${metodo}`;
+        let msg = `Olá! Gostaria de finalizar meu pedido.\n\n*Total:* ${total}\n*Pagamento:* ${metodo}`;
 
         if (metodo === 'Cartão de Crédito') {
-            const qtdParcelas = document.getElementById('parcelas').value;
-            msg += ` (${qtdParcelas})`;
+            const parcelaSelecionada = document.getElementById('parcelas').value;
+            msg += `\n*Parcelamento:* ${parcelaSelecionada}`;
         }
 
-        // Coloque seu número aqui abaixo
-        const numero = "5500999999999"; 
+        const numero = "5500999999999"; // SEU WHATSAPP
         window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 </script>
+
 <script src="script.js"></script>
 </body>
 </html>
