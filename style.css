@@ -9,10 +9,12 @@
     --card-bg: #ffffff;
     --text-main: #1c1917;
     --text-muted: #71717a;
-    --primary: #d4a373; /* Tom Ouro Champanhe */
+    --primary: #d4a373; 
     --accent-btn: #10b981;
     --promo-red: #991b1b;
     --border-color: #e4e4e7;
+    /* Rosa claro premium para o tema */
+    --bg-rosa-claro: #ffdae0; 
 }
 
 body {
@@ -21,9 +23,9 @@ body {
     color: var(--text-main);
 }
 
-/* --- CABEÇALHO CORRIGIDO --- */
+/* --- CABEÇALHO COM A COR ROSA E ALINHAMENTO CERTO --- */
 .main-header {
-    background: #ffdae0; /* O ROSA CLARO QUE VOCÊ PEDIU */
+    background: var(--bg-rosa-claro) !important; /* AQUI ESTÁ SEU ROSA DE VOLTA */
     backdrop-filter: blur(10px);
     padding: 0 5%;
     display: flex;
@@ -43,15 +45,14 @@ body {
     font-weight: 800; 
     font-size: 24px; 
     letter-spacing: 3px; 
-    color: #1c1917; /* Escuro para dar leitura no rosa */
+    color: #1c1917; 
 }
 .logo span { color: var(--primary); }
 
-/* --- BARRA DE BUSCA CENTRALIZADA --- */
+/* --- BUSCA NO MEIO --- */
 .box-busca {
     flex: 0 1 400px; 
     margin: 0 20px;
-    display: flex; /* Garante alinhamento interno */
 }
 
 .box-busca input {
@@ -67,9 +68,7 @@ body {
     transition: 0.3s;
 }
 
-.box-busca input::placeholder { color: rgba(0, 0, 0, 0.4); }
-
-/* --- FILTROS ALINHADOS À DIREITA --- */
+/* --- FILTROS NA DIREITA --- */
 .filtros {
     flex: 1; 
     display: flex;
@@ -77,7 +76,7 @@ body {
 }
 
 .filtros button {
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.5);
     border: 1px solid rgba(0, 0, 0, 0.1);
     color: #1c1917;
     padding: 8px 18px; 
@@ -87,7 +86,7 @@ body {
     font-weight: 600;
     font-size: 12px;
     transition: 0.3s;
-    white-space: nowrap; /* Impede o texto de quebrar linha */
+    white-space: nowrap;
 }
 
 .filtros button.active, .filtros button:hover {
@@ -96,39 +95,17 @@ body {
     border-color: var(--primary);
 }
 
-/* --- BANNER (MANTENDO AS CONFIGURAÇÕES DE IMAGEM) --- */
+/* --- AJUSTE DO BANNER PARA NÃO SUMIR --- */
 .hero-banner {
+    margin-top: 80px; /* Deixa espaço para o header rosa */
     background-image: url('img/lumi_fundo.png');
     background-size: cover; 
     background-position: center center;
-    background-repeat: no-repeat;
     min-height: 450px; 
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    color: #ffffff;
-    padding: 60px 5%; 
+    position: relative;
     text-align: center;
-    position: relative;
-    overflow: hidden;
-    margin-top: 80px; /* Para não ficar embaixo do header fixo */
-}
-
-.hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 800px;
-}
-
-.hero-banner h1 {
-    font-size: 38px;
-    font-weight: 700;
-    text-shadow: 5px 5px 15px rgba(0, 0, 0, 0.8);
-    margin-bottom: 12px;
-}
-
-.hero-banner p {
-    font-size: 15px;
-    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
 }
