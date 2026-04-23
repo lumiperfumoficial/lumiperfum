@@ -29,7 +29,6 @@
         <span class="hero-badge"></span>
         <h1>Perfumes Que <span>Marcam</span> Presença.</h1>
         <p>Descubra fragrâncias marcantes que transformam qualquer momento em uma experiência inesquecível.</p>
-        
     </div>
 </section>
 
@@ -50,10 +49,24 @@
             <div class="cart-footer">
                 <div class="payment-selection">
                     <label>Forma de Pagamento:</label>
-                    <select id="metodo-pagamento">
+                    <select id="metodo-pagamento" onchange="toggleParcelas()">
                         <option value="Pix">Pix </option>
                         <option value="Cartão de Crédito">Cartão de Crédito</option>
                         <option value="Cartão de Débito">Cartão de Débito</option>
+                    </select>
+                </div>
+
+                <div id="campo-parcelas" style="display: none; margin-top: 10px;">
+                    <label>Quantidade de Parcelas:</label>
+                    <select id="parcelas" style="width: 100%; padding: 5px; border-radius: 4px;">
+                        <option value="1x">1x sem juros</option>
+                        <option value="2x">2x sem juros</option>
+                        <option value="3x">3x sem juros</option>
+                        <option value="4x">4x sem juros</option>
+                        <option value="5x">5x sem juros</option>
+                        <option value="6x">6x sem juros</option>
+                        <option value="10x">10x com juros</option>
+                        <option value="12x">12x com juros</option>
                     </select>
                 </div>
 
@@ -67,6 +80,29 @@
     </aside>
 </main>
 
+<script>
+    // Função para mostrar/esconder parcelas sem mudar nada no resto do seu código
+    function toggleParcelas() {
+        const metodo = document.getElementById('metodo-pagamento').value;
+        const divParcelas = document.getElementById('campo-parcelas');
+        divParcelas.style.display = (metodo === 'Cartão de Crédito') ? 'block' : 'none';
+    }
+
+    // Função para capturar os dados e enviar pro Whats
+    function finalizarCompra() {
+        const total = document.getElementById('total').innerText;
+        const metodo = document.getElementById('metodo-pagamento').value;
+        let msg = `Olá! Gostaria de encomendar os produtos.\n*Total:* ${total}\n*Pagamento:* ${metodo}`;
+
+        if (metodo === 'Cartão de Crédito') {
+            const qtdParcelas = document.getElementById('parcelas').value;
+            msg += ` em ${qtdParcelas}`;
+        }
+
+        const numero = "5500999999999"; // Coloque seu número aqui
+        window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+</script>
 <script src="script.js"></script>
 </body>
 </html>
