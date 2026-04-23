@@ -59,14 +59,18 @@
                 <div id="campo-parcelas" style="display: none; margin-top: 10px;">
                     <label>Quantidade de Parcelas:</label>
                     <select id="parcelas" style="width: 100%; padding: 5px; border-radius: 4px;">
-                        <option value="1x">1x sem juros</option>
-                        <option value="2x">2x sem juros</option>
-                        <option value="3x">3x sem juros</option>
-                        <option value="4x">4x sem juros</option>
-                        <option value="5x">5x sem juros</option>
-                        <option value="6x">6x sem juros</option>
-                        <option value="10x">10x com juros</option>
-                        <option value="12x">12x com juros</option>
+                        <option value="1x">1x</option>
+                        <option value="2x">2x</option>
+                        <option value="3x">3x</option>
+                        <option value="4x">4x</option>
+                        <option value="5x">5x</option>
+                        <option value="6x">6x</option>
+                        <option value="7x">7x</option>
+                        <option value="8x">8x</option>
+                        <option value="9x">9x</option>
+                        <option value="10x">10x</option>
+                        <option value="11x">11x</option>
+                        <option value="12x">12x</option>
                     </select>
                 </div>
 
@@ -81,25 +85,24 @@
 </main>
 
 <script>
-    // Função para mostrar/esconder parcelas sem mudar nada no resto do seu código
     function toggleParcelas() {
         const metodo = document.getElementById('metodo-pagamento').value;
         const divParcelas = document.getElementById('campo-parcelas');
         divParcelas.style.display = (metodo === 'Cartão de Crédito') ? 'block' : 'none';
     }
 
-    // Função para capturar os dados e enviar pro Whats
     function finalizarCompra() {
         const total = document.getElementById('total').innerText;
         const metodo = document.getElementById('metodo-pagamento').value;
-        let msg = `Olá! Gostaria de encomendar os produtos.\n*Total:* ${total}\n*Pagamento:* ${metodo}`;
+        let msg = `Olá! Gostaria de encomendar os produtos.\n\n*Total:* ${total}\n*Pagamento:* ${metodo}`;
 
         if (metodo === 'Cartão de Crédito') {
             const qtdParcelas = document.getElementById('parcelas').value;
-            msg += ` em ${qtdParcelas}`;
+            msg += ` (${qtdParcelas})`;
         }
 
-        const numero = "5500999999999"; // Coloque seu número aqui
+        // Coloque seu número aqui abaixo
+        const numero = "5500999999999"; 
         window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 </script>
