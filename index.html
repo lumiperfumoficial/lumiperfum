@@ -79,23 +79,27 @@
         const totalElemento = document.getElementById('total');
         const selectParcelas = document.getElementById('parcelas');
         
-        // Pega o texto, remove "R$", remove pontos de milhar e troca vírgula por ponto
-        let valorTexto = totalElemento.innerText.replace("R$", "").trim();
-        valorTexto = valorTexto.replace(/\./g, "").replace(",", ".");
+        // LIMPEZA SEGURA: Remove tudo que não for número
+        let apenasNumeros = totalElemento.innerText.replace(/\D/g, "");
         
-        const valorNumerico = parseFloat(valorTexto);
+        // Transforma os últimos dois números em centavos (ex: 33300 vira 333.00)
+        let valorNumerico = parseFloat(apenasNumeros) / 100;
 
         selectParcelas.innerHTML = ''; 
 
-        // Se o valor for válido, gera as parcelas
         if (!isNaN(valorNumerico) && valorNumerico > 0) {
             for (let i = 1; i <= 12; i++) {
-                const valorDividido = (valorNumerico / i).toFixed(2);
-                const valorFormatado = valorDividido.replace(".", ",");
+                const valorDividido = valorNumerico / i;
+                
+                // Formata o valor para o padrão brasileiro de moeda
+                const valorFormatado = valorDividido.toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                });
                 
                 const option = document.createElement('option');
-                option.value = `${i}x de R$ ${valorFormatado}`;
-                option.text = `${i}x de R$ ${valorFormatado}`;
+                option.value = `${i}x de ${valorFormatado}`;
+                option.text = `${i}x de ${valorFormatado}`;
                 selectParcelas.appendChild(option);
             }
         }
@@ -111,7 +115,7 @@
             msg += `\n*Parcelamento:* ${parcelaSelecionada}`;
         }
 
-        const numero = "5500999999999"; // SEU WHATSAPP
+        const numero = "5500999999999"; // COLOQUE SEU WHATSAPP AQUI
         window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 </script>
