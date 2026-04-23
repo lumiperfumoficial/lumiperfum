@@ -49,7 +49,7 @@
             <div class="cart-footer">
                 <div class="payment-selection">
                     <label>Forma de Pagamento:</label>
-                    <select id="metodo-pagamento" onchange="toggleParcelas()">
+                    <select id="metodo-pagamento" onchange="atualizarInterfacePagamento()">
                         <option value="Pix">Pix </option>
                         <option value="Cartão de Crédito">Cartão de Crédito</option>
                         <option value="Cartão de Débito">Cartão de Débito</option>
@@ -59,19 +59,7 @@
                 <div id="campo-parcelas" style="display: none; margin-top: 10px;">
                     <label>Quantidade de Parcelas:</label>
                     <select id="parcelas" style="width: 100%; padding: 5px; border-radius: 4px;">
-                        <option value="1x">1x</option>
-                        <option value="2x">2x</option>
-                        <option value="3x">3x</option>
-                        <option value="4x">4x</option>
-                        <option value="5x">5x</option>
-                        <option value="6x">6x</option>
-                        <option value="7x">7x</option>
-                        <option value="8x">8x</option>
-                        <option value="9x">9x</option>
-                        <option value="10x">10x</option>
-                        <option value="11x">11x</option>
-                        <option value="12x">12x</option>
-                    </select>
+                        </select>
                 </div>
 
                 <div class="total-row">
@@ -85,26 +73,54 @@
 </main>
 
 <script>
-    function toggleParcelas() {
+    // Função que monitora a mudança de pagamento e gera as parcelas
+    function atualizarInterfacePagamento() {
         const metodo = document.getElementById('metodo-pagamento').value;
         const divParcelas = document.getElementById('campo-parcelas');
-        divParcelas.style.display = (metodo === 'Cartão de Crédito') ? 'block' : 'none';
+        
+        if (metodo === 'Cartão de Crédito') {
+            divParcelas.style.display = 'block';
+            gerarOpcoesParcelas();
+        } else {
+            divParcelas.style.display = 'none';
+        }
     }
 
+    // Função que calcula os valores das parcelas (1x até 12x)
+    function gerarOpcoesParcelas() {
+        const totalTexto = document.getElementById('total').innerText;
+        // Converte "R$ 100,00" para o número 100.00
+        const valorNumerico = parseFloat(totalTexto.replace('R$', '').replace('.', '').replace(',', '.').trim());
+        const selectParcelas = document.getElementById('parcelas');
+        
+        selectParcelas.innerHTML = ''; // Limpa as opções anteriores
+
+        for (let i = 1; i <= 12; i++) {
+            const valorParcela = (valorNumerico / i).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            const option = document.createElement('option');
+            option.value = `${i}x de ${valorParcela}`;
+            option.text = `${i}x de ${valorParcela}`;
+            selectParcelas.appendChild(option);
+        }
+    }
+
+    // Função para enviar os dados finais pro WhatsApp
     function finalizarCompra() {
         const total = document.getElementById('total').innerText;
         const metodo = document.getElementById('metodo-pagamento').value;
         let msg = `Olá! Gostaria de encomendar os produtos.\n\n*Total:* ${total}\n*Pagamento:* ${metodo}`;
 
         if (metodo === 'Cartão de Crédito') {
-            const qtdParcelas = document.getElementById('parcelas').value;
-            msg += ` (${qtdParcelas})`;
+            const parcelaSelecionada = document.getElementById('parcelas').value;
+            msg += `\n*Parcelamento:* ${parcelaSelecionada}`;
         }
 
-        // Coloque seu número aqui abaixo
-        const numero = "5500999999999"; 
+        const numero = "5500999999999"; // COLOQUE SEU WHATSAPP AQUI
         window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msg)}`, '_blank');
     }
+
+    // Caso o valor do carrinho mude enquanto o carrinho está aberto
+    // Você pode chamar gerarOpcoesParcelas() dentro da sua função original de atualizar o total.
 </script>
 <script src="script.js"></script>
 </body>
