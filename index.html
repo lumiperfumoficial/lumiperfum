@@ -63,6 +63,7 @@
 </main>
 
 <script>
+    // Função para mostrar/esconder o campo
     function atualizarInterfacePagamento() {
         const metodo = document.getElementById('metodo-pagamento').value;
         const divParcelas = document.getElementById('campo-parcelas');
@@ -75,14 +76,14 @@
         }
     }
 
+    // Função que calcula as parcelas
     function gerarOpcoesParcelas() {
         const totalElemento = document.getElementById('total');
         const selectParcelas = document.getElementById('parcelas');
         
-        // LIMPEZA SEGURA: Remove tudo que não for número
+        if (!totalElemento || !selectParcelas) return;
+
         let apenasNumeros = totalElemento.innerText.replace(/\D/g, "");
-        
-        // Transforma os últimos dois números em centavos (ex: 33300 vira 333.00)
         let valorNumerico = parseFloat(apenasNumeros) / 100;
 
         selectParcelas.innerHTML = ''; 
@@ -90,8 +91,6 @@
         if (!isNaN(valorNumerico) && valorNumerico > 0) {
             for (let i = 1; i <= 12; i++) {
                 const valorDividido = valorNumerico / i;
-                
-                // Formata o valor para o padrão brasileiro de moeda
                 const valorFormatado = valorDividido.toLocaleString('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
@@ -105,6 +104,18 @@
         }
     }
 
+    // --- SOLUÇÃO PARA O SEU B.O ---
+    // Esse código abaixo fica vigiando o ID "total". 
+    // Se o valor mudar (de 333 para 433), ele chama a função de parcelas na hora!
+    const targetNode = document.getElementById('total');
+    const observer = new MutationObserver(() => {
+        const metodo = document.getElementById('metodo-pagamento').value;
+        if (metodo === 'Cartão de Crédito') {
+            gerarOpcoesParcelas();
+        }
+    });
+    observer.observe(targetNode, { childList: true, characterData: true, subtree: true });
+
     function finalizarCompra() {
         const total = document.getElementById('total').innerText;
         const metodo = document.getElementById('metodo-pagamento').value;
@@ -115,7 +126,7 @@
             msg += `\n*Parcelamento:* ${parcelaSelecionada}`;
         }
 
-        const numero = "5500999999999"; // COLOQUE SEU WHATSAPP AQUI
+        const numero = "5500999999999"; // Coloque seu número
         window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 </script>
