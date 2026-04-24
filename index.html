@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LumiPerfum | Loja Oficial</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
 
 <header class="main-header" style="background: #ffdae0 !important; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; height: 80px; position: fixed; width: 100%; top: 0; z-index: 9999;">
@@ -38,19 +39,23 @@
                 <h2>Sua Sacola</h2>
                 <button onclick="toggleCart()" class="close-cart">×</button>
             </div>
+            
             <div id="lista-carrinho" class="cart-items"></div>
+
             <div class="cart-footer">
                 <div class="payment-selection">
                     <label>Forma de Pagamento:</label>
                     <select id="metodo-pagamento" onchange="atualizarInterfacePagamento()">
                         <option value="Pix">Pix</option>
                         <option value="Cartão de Crédito">Cartão de Crédito</option>
-                    </select>
+                        <option value="Cartão de Débito">Cartão de Débito</option> </select>
                 </div>
+
                 <div id="campo-parcelas" style="display: none; margin-top: 10px;">
-                    <label>Parcelas:</label>
-                    <select id="parcelas"></select>
+                    <label>Quantidade de Parcelas:</label>
+                    <select id="parcelas" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ddd;"></select>
                 </div>
+
                 <div class="total-row">
                     <span>Total:</span>
                     <strong id="total">R$ 0,00</strong>
@@ -61,8 +66,35 @@
     </aside>
 </main>
 
-<script src="script.js"></script> <script>
-    // Código das parcelas e do observador (MutationObserver) para atualizar o valor
+<script src="script.js"></script>
+<script>
+    function atualizarInterfacePagamento() {
+        const metodo = document.getElementById('metodo-pagamento').value;
+        const divParcelas = document.getElementById('campo-parcelas');
+        if (metodo === 'Cartão de Crédito') {
+            divParcelas.style.display = 'block';
+            gerarOpcoesParcelas();
+        } else {
+            divParcelas.style.display = 'none';
+        }
+    }
+
+    function gerarOpcoesParcelas() {
+        const totalTexto = document.getElementById('total').innerText;
+        let valor = parseFloat(totalTexto.replace(/\D/g, "")) / 100;
+        const select = document.getElementById('parcelas');
+        select.innerHTML = '';
+        if (!isNaN(valor) && valor > 0) {
+            for (let i = 1; i <= 12; i++) {
+                let valorParcela = (valor / i).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                let opt = document.createElement('option');
+                opt.value = `${i}x de ${valorParcela}`;
+                opt.text = `${i}x de ${valorParcela}`;
+                select.appendChild(opt);
+            }
+        }
+    }
+
     const targetNode = document.getElementById('total');
     const observer = new MutationObserver(() => {
         if (document.getElementById('metodo-pagamento').value === 'Cartão de Crédito') {
@@ -71,18 +103,14 @@
     });
     observer.observe(targetNode, { childList: true, characterData: true, subtree: true });
 
-    function gerarOpcoesParcelas() {
-        const totalTexto = document.getElementById('total').innerText;
-        let valor = parseFloat(totalTexto.replace(/\D/g, "")) / 100;
-        const select = document.getElementById('parcelas');
-        select.innerHTML = '';
-        for (let i = 1; i <= 12; i++) {
-            let parcela = (valor / i).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            let opt = document.createElement('option');
-            opt.value = `${i}x de ${parcela}`;
-            opt.text = `${i}x de ${parcela}`;
-            select.appendChild(opt);
+    function finalizarCompra() {
+        const total = document.getElementById('total').innerText;
+        const metodo = document.getElementById('metodo-pagamento').value;
+        let msg = `Olá! Gostaria de finalizar meu pedido.\n\n*Total:* ${total}\n*Pagamento:* ${metodo}`;
+        if (metodo === 'Cartão de Crédito') {
+            msg += `\n*Parcelamento:* ${document.getElementById('parcelas').value}`;
         }
+        window.open(`https://wa.me/5500999999999?text=${encodeURIComponent(msg)}`, '_blank');
     }
 </script>
 </body>
