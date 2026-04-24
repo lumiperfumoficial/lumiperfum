@@ -5,127 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LumiPerfum | Loja Oficial</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --bg-page: #fdfcfb;
-            --card-bg: #ffffff;
-            --text-main: #1c1917;
-            --text-muted: #71717a;
-            --primary: #d4a373; 
-            --accent-btn: #10b981;
-            --promo-red: #991b1b;
-            --border-color: #e4e4e7;
-            --bg-rosa-claro: #ffdae0; 
-        }
-
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-page); color: var(--text-main); }
-
-        /* --- CABEÇALHO ROSA E ALINHADO --- */
-        .main-header {
-            background: var(--bg-rosa-claro) !important;
-            backdrop-filter: blur(10px);
-            padding: 0 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed; 
-            width: 100%;
-            height: 80px; 
-            top: 0;
-            z-index: 9999; 
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .logo { flex: 1; font-weight: 800; font-size: 24px; letter-spacing: 3px; color: #1c1917; }
-        .logo span { color: var(--primary); }
-
-        .box-busca { flex: 0 1 400px; margin: 0 20px; }
-        .box-busca input {
-            width: 100%; padding: 10px 20px; border-radius: 30px;
-            border: 1px solid rgba(0, 0, 0, 0.1); background: rgba(255, 255, 255, 0.6);
-            color: #1c1917; outline: none; transition: 0.3s;
-        }
-
-        .filtros { flex: 1; display: flex; justify-content: flex-end; }
-        .filtros button {
-            background: rgba(255, 255, 255, 0.5); border: 1px solid rgba(0, 0, 0, 0.1);
-            color: #1c1917; padding: 8px 18px; border-radius: 30px; margin-left: 10px;
-            cursor: pointer; font-weight: 600; font-size: 12px; transition: 0.3s; white-space: nowrap;
-        }
-
-        .filtros button.active, .filtros button:hover { background: var(--primary); color: #ffffff; border-color: var(--primary); }
-
-        /* --- BANNER PRINCIPAL --- */
-        .hero-banner {
-            margin-top: 80px;
-            background-image: url('img/lumi_fundo.png');
-            background-size: cover; background-position: center;
-            min-height: 450px; display: flex; align-items: center; justify-content: center;
-            flex-direction: column; color: #ffffff; text-align: center; position: relative;
-        }
-
-        .hero-content { position: relative; z-index: 1; max-width: 800px; }
-        .hero-banner h1 { 
-            font-size: 38px; font-weight: 700; margin-bottom: 12px;
-            text-shadow: 5px 5px 15px rgba(0, 0, 0, 0.8); 
-        }
-        .hero-banner p { 
-            font-size: 15px; text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
-            max-width: 550px; margin: 0 auto; line-height: 1.6;
-        }
-
-        /* --- SIDEBAR DA SACOLA --- */
-        .sidebar {
-            position: fixed; top: 80px; right: -450px; width: 400px;
-            height: calc(100vh - 80px); background: white; z-index: 1000;
-            transition: right 0.3s ease; box-shadow: -5px 0 25px rgba(0,0,0,0.1);
-        }
-        .sidebar.active { right: 0; }
-    </style>
-</head>
+    <link rel="stylesheet" href="style.css"> </head>
 <body>
 
-<header class="main-header">
-    <div class="logo">LUMI<span>PERFUM</span></div>
-    <div class="box-busca">
-        <input type="text" id="input-busca" placeholder="🔍 Buscar perfume..." onkeyup="buscarPerfume()">
+<header class="main-header" style="background: #ffdae0 !important; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; height: 80px; position: fixed; width: 100%; top: 0; z-index: 9999;">
+    <div class="logo" style="flex: 1; font-weight: 800; font-size: 24px; color: #1c1917;">LUMI<span style="color: #d4a373;">PERFUM</span></div>
+    
+    <div class="box-busca" style="flex: 0 1 400px; margin: 0 20px;">
+        <input type="text" id="input-busca" placeholder="🔍 Buscar perfume..." onkeyup="buscarPerfume()" style="width: 100%; padding: 10px 20px; border-radius: 30px; border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.6);">
     </div>
-    <nav class="filtros">
+
+    <nav class="filtros" style="flex: 1; display: flex; justify-content: flex-end;">
         <button class="btn-filtro active" onclick="filtrar('todos')">Todos</button>
         <button class="btn-filtro" onclick="filtrar('masculino')">Masculino</button>
         <button class="btn-filtro" onclick="filtrar('feminino')">Feminino</button>
     </nav>
 </header>
 
-<section class="hero-banner">
+<section class="hero-banner" style="margin-top: 80px; text-align: center; padding: 60px 5%;">
     <div class="hero-content">
-        <h1>Perfumes Que <span>Marcam</span> Presença.</h1>
-        <p>Descubra fragrâncias marcantes que transformam qualquer momento em uma experiência inesquecível.</p>
+        <h1 style="text-shadow: 5px 5px 15px rgba(0,0,0,0.8); color: white; font-size: 38px;">Perfumes Que <span>Marcam</span> Presença.</h1>
+        <p style="text-shadow: 3px 3px 10px rgba(0,0,0,0.8); color: white;">Descubra fragrâncias marcantes que transformam qualquer momento em uma experiência inesquecível.</p>
     </div>
 </section>
 
-<script>
-    // Mantendo a lógica de parcelas que funciona perfeitamente
+<main class="container">
+    <section id="produtos" class="product-grid"></section>
+
+    <aside id="cart-sidebar" class="sidebar">
+        <div class="cart-card">
+            <div class="cart-header">
+                <h2>Sua Sacola</h2>
+                <button onclick="toggleCart()" class="close-cart">×</button>
+            </div>
+            <div id="lista-carrinho" class="cart-items"></div>
+            <div class="cart-footer">
+                <div class="payment-selection">
+                    <label>Forma de Pagamento:</label>
+                    <select id="metodo-pagamento" onchange="atualizarInterfacePagamento()">
+                        <option value="Pix">Pix</option>
+                        <option value="Cartão de Crédito">Cartão de Crédito</option>
+                    </select>
+                </div>
+                <div id="campo-parcelas" style="display: none; margin-top: 10px;">
+                    <label>Parcelas:</label>
+                    <select id="parcelas"></select>
+                </div>
+                <div class="total-row">
+                    <span>Total:</span>
+                    <strong id="total">R$ 0,00</strong>
+                </div>
+                <button class="btn-checkout" onclick="finalizarCompra()">Finalizar no WhatsApp</button>
+            </div>
+        </div>
+    </aside>
+</main>
+
+<script src="script.js"></script> <script>
+    // Código das parcelas e do observador (MutationObserver) para atualizar o valor
+    const targetNode = document.getElementById('total');
+    const observer = new MutationObserver(() => {
+        if (document.getElementById('metodo-pagamento').value === 'Cartão de Crédito') {
+            gerarOpcoesParcelas();
+        }
+    });
+    observer.observe(targetNode, { childList: true, characterData: true, subtree: true });
+
     function gerarOpcoesParcelas() {
-        const totalElemento = document.getElementById('total');
-        const selectParcelas = document.getElementById('parcelas');
-        if (!totalElemento || !selectParcelas) return;
-
-        let apenasNumeros = totalElemento.innerText.replace(/\D/g, "");
-        let valorNumerico = parseFloat(apenasNumeros) / 100;
-
-        selectParcelas.innerHTML = ''; 
-        if (!isNaN(valorNumerico) && valorNumerico > 0) {
-            for (let i = 1; i <= 12; i++) {
-                const valorDividido = valorNumerico / i;
-                const valorFormatado = valorDividido.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-                const option = document.createElement('option');
-                option.value = `${i}x de ${valorFormatado}`;
-                option.text = `${i}x de ${valorFormatado}`;
-                selectParcelas.appendChild(option);
-            }
+        const totalTexto = document.getElementById('total').innerText;
+        let valor = parseFloat(totalTexto.replace(/\D/g, "")) / 100;
+        const select = document.getElementById('parcelas');
+        select.innerHTML = '';
+        for (let i = 1; i <= 12; i++) {
+            let parcela = (valor / i).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            let opt = document.createElement('option');
+            opt.value = `${i}x de ${parcela}`;
+            opt.text = `${i}x de ${parcela}`;
+            select.appendChild(opt);
         }
     }
 </script>
