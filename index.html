@@ -23,15 +23,6 @@
     </nav>
 </header>
 
-<section class="hero-banner">
-    <div class="hero-glow"></div>
-    <div class="hero-content">
-        <span class="hero-badge"></span>
-        <h1>Perfumes Que <span>Marcam</span> Presença.</h1>
-        <p>Descubra fragrâncias marcantes que transformam qualquer momento em uma experiência inesquecível.</p>
-    </div>
-</section>
-
 <main class="container">
     <section id="produtos" class="product-grid"></section>
 
@@ -72,6 +63,7 @@
 </main>
 
 <script>
+    // Função para mostrar/esconder o campo
     function atualizarInterfacePagamento() {
         const metodo = document.getElementById('metodo-pagamento').value;
         const divParcelas = document.getElementById('campo-parcelas');
@@ -84,6 +76,7 @@
         }
     }
 
+    // Função que calcula as parcelas
     function gerarOpcoesParcelas() {
         const totalElemento = document.getElementById('total');
         const selectParcelas = document.getElementById('parcelas');
@@ -111,7 +104,9 @@
         }
     }
 
-    // Monitora o total para atualizar as parcelas automaticamente
+    // --- SOLUÇÃO PARA O SEU B.O ---
+    // Esse código abaixo fica vigiando o ID "total". 
+    // Se o valor mudar (de 333 para 433), ele chama a função de parcelas na hora!
     const targetNode = document.getElementById('total');
     const observer = new MutationObserver(() => {
         const metodo = document.getElementById('metodo-pagamento').value;
@@ -131,7 +126,7 @@
             msg += `\n*Parcelamento:* ${parcelaSelecionada}`;
         }
 
-        const numero = "5500999999999"; // Coloque seu número aqui
+        const numero = "5500999999999"; // Coloque seu número
         window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 </script>
