@@ -5,97 +5,122 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LumiPerfum | Loja Oficial</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-page: #fdfcfb;
+            --card-bg: #ffffff;
+            --text-main: #1c1917;
+            --text-muted: #71717a;
+            --primary: #d4a373; 
+            --accent-btn: #10b981;
+            --promo-red: #991b1b;
+            --border-color: #e4e4e7;
+            --bg-rosa-claro: #ffdae0; 
+        }
+
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-page); color: var(--text-main); }
+
+        /* --- CABEÇALHO ROSA E ALINHADO --- */
+        .main-header {
+            background: var(--bg-rosa-claro) !important;
+            backdrop-filter: blur(10px);
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed; 
+            width: 100%;
+            height: 80px; 
+            top: 0;
+            z-index: 9999; 
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .logo { flex: 1; font-weight: 800; font-size: 24px; letter-spacing: 3px; color: #1c1917; }
+        .logo span { color: var(--primary); }
+
+        .box-busca { flex: 0 1 400px; margin: 0 20px; }
+        .box-busca input {
+            width: 100%; padding: 10px 20px; border-radius: 30px;
+            border: 1px solid rgba(0, 0, 0, 0.1); background: rgba(255, 255, 255, 0.6);
+            color: #1c1917; outline: none; transition: 0.3s;
+        }
+
+        .filtros { flex: 1; display: flex; justify-content: flex-end; }
+        .filtros button {
+            background: rgba(255, 255, 255, 0.5); border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #1c1917; padding: 8px 18px; border-radius: 30px; margin-left: 10px;
+            cursor: pointer; font-weight: 600; font-size: 12px; transition: 0.3s; white-space: nowrap;
+        }
+
+        .filtros button.active, .filtros button:hover { background: var(--primary); color: #ffffff; border-color: var(--primary); }
+
+        /* --- BANNER PRINCIPAL --- */
+        .hero-banner {
+            margin-top: 80px;
+            background-image: url('img/lumi_fundo.png');
+            background-size: cover; background-position: center;
+            min-height: 450px; display: flex; align-items: center; justify-content: center;
+            flex-direction: column; color: #ffffff; text-align: center; position: relative;
+        }
+
+        .hero-content { position: relative; z-index: 1; max-width: 800px; }
+        .hero-banner h1 { 
+            font-size: 38px; font-weight: 700; margin-bottom: 12px;
+            text-shadow: 5px 5px 15px rgba(0, 0, 0, 0.8); 
+        }
+        .hero-banner p { 
+            font-size: 15px; text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
+            max-width: 550px; margin: 0 auto; line-height: 1.6;
+        }
+
+        /* --- SIDEBAR DA SACOLA --- */
+        .sidebar {
+            position: fixed; top: 80px; right: -450px; width: 400px;
+            height: calc(100vh - 80px); background: white; z-index: 1000;
+            transition: right 0.3s ease; box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+        }
+        .sidebar.active { right: 0; }
+    </style>
 </head>
 <body>
 
 <header class="main-header">
     <div class="logo">LUMI<span>PERFUM</span></div>
-    
     <div class="box-busca">
         <input type="text" id="input-busca" placeholder="🔍 Buscar perfume..." onkeyup="buscarPerfume()">
     </div>
-
     <nav class="filtros">
-        <button class="btn-filtro active" data-tipo="todos" onclick="filtrar('todos')">Todos</button>
-        <button class="btn-filtro" data-tipo="masculino" onclick="filtrar('masculino')">Masculino</button>
-        <button class="btn-filtro" data-tipo="feminino" onclick="filtrar('feminino')">Feminino</button>
+        <button class="btn-filtro active" onclick="filtrar('todos')">Todos</button>
+        <button class="btn-filtro" onclick="filtrar('masculino')">Masculino</button>
+        <button class="btn-filtro" onclick="filtrar('feminino')">Feminino</button>
     </nav>
 </header>
 
-<main class="container">
-    <section id="produtos" class="product-grid"></section>
-
-    <aside id="cart-sidebar" class="sidebar">
-        <div class="cart-card">
-            <div class="cart-header">
-                <h2>Sua Sacola</h2>
-                <button onclick="toggleCart()" class="close-cart">×</button>
-            </div>
-            
-            <div id="lista-carrinho" class="cart-items">
-                <p class="empty-msg">Nenhum produto selecionado.</p>
-            </div>
-
-            <div class="cart-footer">
-                <div class="payment-selection">
-                    <label>Forma de Pagamento:</label>
-                    <select id="metodo-pagamento" onchange="atualizarInterfacePagamento()">
-                        <option value="Pix">Pix </option>
-                        <option value="Cartão de Crédito">Cartão de Crédito</option>
-                        <option value="Cartão de Débito">Cartão de Débito</option>
-                    </select>
-                </div>
-
-                <div id="campo-parcelas" style="display: none; margin-top: 10px;">
-                    <label>Quantidade de Parcelas:</label>
-                    <select id="parcelas" style="width: 100%; padding: 5px; border-radius: 4px;"></select>
-                </div>
-
-                <div class="total-row">
-                    <span>Total:</span>
-                    <strong id="total">R$ 0,00</strong>
-                </div>
-                <button class="btn-checkout" onclick="finalizarCompra()">Finalizar no WhatsApp</button>
-            </div>
-        </div>
-    </aside>
-</main>
+<section class="hero-banner">
+    <div class="hero-content">
+        <h1>Perfumes Que <span>Marcam</span> Presença.</h1>
+        <p>Descubra fragrâncias marcantes que transformam qualquer momento em uma experiência inesquecível.</p>
+    </div>
+</section>
 
 <script>
-    // Função para mostrar/esconder o campo
-    function atualizarInterfacePagamento() {
-        const metodo = document.getElementById('metodo-pagamento').value;
-        const divParcelas = document.getElementById('campo-parcelas');
-        
-        if (metodo === 'Cartão de Crédito') {
-            divParcelas.style.display = 'block';
-            gerarOpcoesParcelas();
-        } else {
-            divParcelas.style.display = 'none';
-        }
-    }
-
-    // Função que calcula as parcelas
+    // Mantendo a lógica de parcelas que funciona perfeitamente
     function gerarOpcoesParcelas() {
         const totalElemento = document.getElementById('total');
         const selectParcelas = document.getElementById('parcelas');
-        
         if (!totalElemento || !selectParcelas) return;
 
         let apenasNumeros = totalElemento.innerText.replace(/\D/g, "");
         let valorNumerico = parseFloat(apenasNumeros) / 100;
 
         selectParcelas.innerHTML = ''; 
-
         if (!isNaN(valorNumerico) && valorNumerico > 0) {
             for (let i = 1; i <= 12; i++) {
                 const valorDividido = valorNumerico / i;
-                const valorFormatado = valorDividido.toLocaleString('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL'
-                });
-                
+                const valorFormatado = valorDividido.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                 const option = document.createElement('option');
                 option.value = `${i}x de ${valorFormatado}`;
                 option.text = `${i}x de ${valorFormatado}`;
@@ -103,34 +128,6 @@
             }
         }
     }
-
-    // --- SOLUÇÃO PARA O SEU B.O ---
-    // Esse código abaixo fica vigiando o ID "total". 
-    // Se o valor mudar (de 333 para 433), ele chama a função de parcelas na hora!
-    const targetNode = document.getElementById('total');
-    const observer = new MutationObserver(() => {
-        const metodo = document.getElementById('metodo-pagamento').value;
-        if (metodo === 'Cartão de Crédito') {
-            gerarOpcoesParcelas();
-        }
-    });
-    observer.observe(targetNode, { childList: true, characterData: true, subtree: true });
-
-    function finalizarCompra() {
-        const total = document.getElementById('total').innerText;
-        const metodo = document.getElementById('metodo-pagamento').value;
-        let msg = `Olá! Gostaria de finalizar meu pedido.\n\n*Total:* ${total}\n*Pagamento:* ${metodo}`;
-
-        if (metodo === 'Cartão de Crédito') {
-            const parcelaSelecionada = document.getElementById('parcelas').value;
-            msg += `\n*Parcelamento:* ${parcelaSelecionada}`;
-        }
-
-        const numero = "5500999999999"; // Coloque seu número
-        window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msg)}`, '_blank');
-    }
 </script>
-
-<script src="script.js"></script>
 </body>
 </html>
